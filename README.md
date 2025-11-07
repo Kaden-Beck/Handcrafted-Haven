@@ -9,4 +9,5 @@
 - [Under Construction](https://github.com/)
 
 ## Team Members
-- 
+- Kaden Beck
+- Josue Gotay
