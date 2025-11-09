@@ -9,5 +9,6 @@
 - [Under Construction](https://github.com/)
 
 ## Team Members
-- Kaden Beck
-- Josue Gotay
+- Kaden Beck @Kaden-Beck
+- Josue Gotay @gotayjosue
+- Gideon Komla Agbavor @gideonagbavor8 
