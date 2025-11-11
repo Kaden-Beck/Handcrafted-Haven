@@ -6,8 +6,7 @@ import flatPrettier from "eslint-config-prettier/flat";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Ensure Prettier formatting rules win over ESLint formatting rules
-  // use the flat entrypoint for compatibility with ESLint's flat config API
+  // Ensure flatPrettier formatting rules win over ESLint formatting rules
   flatPrettier,
   // Override default ignores of eslint-config-next.
   globalIgnores([
