@@ -35,18 +35,21 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+# Handcrafted-Haven
 
-# Handcrafted-Haven 
-***Team Project for WDD 430 2025 Term 6 Team 16***
+**_Team Project for WDD 430 2025 Term 6 Team 16_**
 
 ## Project Details
+
 - [Project Description](https://byui-cse.github.io/wdd430-ww-course/pages/group-project-description.html)
 - [Figma Boards](https://www.figma.com/files/team/1499161500784673568/project/376430350/Team16-Handcrafted-Haven?fuid=1499161498656515287)
 
 ## Production Site
+
 - [Under Construction](https://github.com/)
 
 ## Team Members
+
 - Kaden Beck @Kaden-Beck
 - Josue Gotay @gotayjosue
-- Gideon Komla Agbavor @gideonagbavor8 
+- Gideon Komla Agbavor @gideonagbavor8

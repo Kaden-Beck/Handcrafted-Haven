@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+public/
+.git/
+coverage/
+pnpm-lock.yaml
+*.min.js
+*.map
+vite.config.*
+/.parcel-cache
+/.turbo
+/.vercel
+/.cache
+!.prettierrc
