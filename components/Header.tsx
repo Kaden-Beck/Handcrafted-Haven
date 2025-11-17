@@ -21,10 +21,6 @@ export function Header() {
       label: 'Sellers',
       href: '/sellers',
     },
-    // {
-    //   label: 'About',
-    //   href: '#',
-    // },
   ];
 
   React.useEffect(() => {
@@ -46,8 +42,8 @@ export function Header() {
       })}
     >
       <nav className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4">
-        <Link href="/" className="rounded-md p-2 hover:bg-accent" aria-label="Home">
-          <Logo className="h-4" />
+        <Link href="/" className="rounded-md p-1 hover:bg-accent" aria-label="Home">
+          <Logo />
         </Link>
         <div className="hidden items-center gap-2 md:flex">
           {links.map((link, i) => (
