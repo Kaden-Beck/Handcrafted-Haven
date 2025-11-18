@@ -1,10 +1,19 @@
 import Hero from '@/components/ui/hero';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <section>
-      <h1 className="text-2xl text-center">Home</h1>
-      <Hero src="/lorem.jpg" alt="Handcrafted decor hero" />
+      <Hero src="/hero.webp" alt="**Alt Text**">
+        <p className="text-sm uppercase tracking-wide from-neutral-200">Autumn Extravaganza</p>
+        <h1 className="text-3xl sm:text-5xl font-semibold">Handcrafted pieces for every room.</h1>
+        <Link href="/catalog" className="">
+          <Button className="w-fit" variant="default">
+            Shop the catalog
+          </Button>
+        </Link>
+      </Hero>
     </section>
   );
 }

@@ -11,6 +11,8 @@ import { cn } from '@/lib/utils';
 export function Header() {
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
+  const navRef = React.useRef<HTMLElement | null>(null);
+  const [navHeight, setNavHeight] = React.useState(64);
 
   const links = [
     {
@@ -34,14 +36,36 @@ export function Header() {
     };
   }, [open]);
 
+  React.useLayoutEffect(() => {
+    const node = navRef.current;
+    if (!node) {
+      return;
+    }
+
+    const updateHeight = () => setNavHeight(node.offsetHeight);
+    updateHeight();
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const observer = new ResizeObserver(() => updateHeight());
+      observer.observe(node);
+      return () => observer.disconnect();
+    }
+
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
     <header
       className={cn('sticky top-0 z-50 w-full border-transparent border-b', {
-        'border-border bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/50':
+        'border-border bg-background/95 backdrop-blur-lg supports-backdrop-filter:bg-background/50':
           scrolled,
       })}
     >
-      <nav className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4">
+      <nav
+        ref={navRef}
+        className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 md:py-4"
+      >
         <Link href="/" className="rounded-md p-1 hover:bg-accent" aria-label="Home">
           <Logo />
         </Link>
@@ -70,7 +94,7 @@ export function Header() {
           <MenuToggleIcon className="size-5" duration={300} open={open} />
         </Button>
       </nav>
-      <MobileMenu className="flex flex-col justify-between gap-2" open={open}>
+      <MobileMenu className="flex flex-col justify-between gap-2" offset={navHeight} open={open}>
         <div className="grid gap-y-2">
           {links.map((link) => (
             <a
@@ -98,9 +122,10 @@ export function Header() {
 
 type MobileMenuProps = React.ComponentProps<'div'> & {
   open: boolean;
+  offset?: number;
 };
 
-function MobileMenu({ open, children, className, ...props }: MobileMenuProps) {
+function MobileMenu({ open, children, className, offset = 64, ...props }: MobileMenuProps) {
   if (!open || typeof window === 'undefined') {
     return null;
   }
@@ -108,10 +133,11 @@ function MobileMenu({ open, children, className, ...props }: MobileMenuProps) {
   return createPortal(
     <div
       className={cn(
-        'bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/50',
-        'fixed top-14 right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden border-y md:hidden'
+        'bg-background/95 backdrop-blur-lg supports-backdrop-filter:bg-background/50',
+        'fixed right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden border-y md:hidden'
       )}
       id="mobile-menu"
+      style={{ top: offset }}
     >
       <div
         className={cn(

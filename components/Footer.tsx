@@ -16,7 +16,7 @@ export function Footer() {
               <span className="font-semibold text-2xl">Handcraft Haven</span>
             </a>
             <p className="max-w-sm text-balance font-mono text-muted-foreground text-sm">
-              A platform to connect creators lovers of handcrafted goods.
+              A platform to connect creators to lovers of handcrafted goods.
             </p>
           </div>
         </div>
