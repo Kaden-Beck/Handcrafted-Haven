@@ -23,7 +23,7 @@ export function Footer() {
         <div className="absolute inset-x-0 h-px w-full bg-border" />
         <div className="flex max-w-4xl flex-col justify-between gap-2 py-4">
           <p className="text-center font-light text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} WDD 430 | Team 15
+            &copy; {new Date().getFullYear()} WDD 430 | Team 16
           </p>
           <div>{/* Add Button to go to github repo  */}</div>
         </div>
