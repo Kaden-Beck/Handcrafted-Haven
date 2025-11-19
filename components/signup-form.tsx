@@ -14,9 +14,9 @@ export function SignupForm({ className, ...props }: React.ComponentProps<'form'>
     <form className={cn('flex flex-col gap-6', className)} {...props}>
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
-          <h1 className="text-2xl font-bold">Create your account</h1>
+          <h1 className="text-2xl font-bold">Create Seller Account</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            Fill in the form below to create your account
+            Fill out the form below to start selling today!
           </p>
         </div>
         <Field>
@@ -55,7 +55,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<'form'>
             Sign up with GitHub
           </Button>
           <FieldDescription className="px-6 text-center">
-            Already have an account? <a href="#">Sign in</a>
+            Already have an account? <a href="/login">Sign in</a>
           </FieldDescription>
         </Field>
       </FieldGroup>

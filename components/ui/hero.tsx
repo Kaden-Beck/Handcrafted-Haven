@@ -1,6 +1,16 @@
-import { cn } from '@/lib/utils';
-import { HeroProps } from '@/lib/definitions';
+import { ComponentProps, ReactNode } from 'react';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
+
+type HeroImageSource = ComponentProps<typeof Image>['src'];
+
+export interface HeroProps {
+  src: HeroImageSource;
+  alt: string;
+  children?: ReactNode;
+  className?: string;
+  overlayClassName?: string;
+}
 
 export default function Hero({ src, alt, children, className, overlayClassName }: HeroProps) {
   return (
@@ -31,7 +41,7 @@ export default function Hero({ src, alt, children, className, overlayClassName }
 
       <div
         className={cn(
-          'relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-16 text-white',
+          'relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-16',
           'sm:px-10 sm:py-20 lg:px-16 lg:py-24'
         )}
       >

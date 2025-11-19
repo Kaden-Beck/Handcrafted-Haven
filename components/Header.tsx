@@ -2,7 +2,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { createPortal } from 'react-dom';
-import { Logo } from '@/components/logo';
 import { MenuToggleIcon } from '@/components/menu-toggle-icon';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { useScroll } from '@/hooks/use-scroll';
@@ -66,8 +65,8 @@ export function Header() {
         ref={navRef}
         className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 md:py-4"
       >
-        <Link href="/" className="rounded-md p-1 hover:bg-accent" aria-label="Home">
-          <Logo />
+        <Link href="/" className="rounded-md p-1 h- hover:bg-accent" aria-label="Home">
+          <span className="text-3xl font-serif">Handcrafted Haven</span>
         </Link>
         <div className="hidden items-center gap-2 md:flex">
           {links.map((link, i) => (
