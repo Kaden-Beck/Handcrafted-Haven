@@ -30,7 +30,6 @@ export function NotFoundPage() {
                     <Home /> Go Home
                   </Link>
                 </Button>
-
                 <Button asChild variant="outline">
                   <Link href="/catalog">
                     <Compass /> Catalog
