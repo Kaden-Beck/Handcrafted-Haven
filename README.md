@@ -1,5 +1,26 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+To install packages:
+```bash
+pnpm install
+```
+
+To run development server:
+```bash
+pnpm run dev
+```
+
+To set up Vercel via CLI
+```bash
+vercel
+```
+
+Set up Prisma 
+```bash
+npx prisma generate
+```
+
+
 # Handcrafted-Haven
 
 **_Team Project for WDD 430 2025 Term 6 Team 16_**
