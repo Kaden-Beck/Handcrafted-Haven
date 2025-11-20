@@ -15,6 +15,11 @@ To set up Vercel via CLI
 vercel
 ```
 
+Set up Prisma 
+```bash
+npx prisma generate
+```
+
 
 # Handcrafted-Haven
 
