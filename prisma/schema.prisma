@@ -1,21 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
 
-// Define database connection via the `DATABASE_URL` env var
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
-// Define custom output path for generated Prisma Client
-generator client {
-  provider = "prisma-client-js"
-  output   = "/app/generated/prisma-client"
+model Review {
+  id        Int     @id @default(autoincrement())
+  rating    Int
+  review    String?
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
 }
 
-// Example data model
-model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal
+  type        Int
+  image_src   String
+  seller      Seller   @relation(fields: [sellerId], references: [id])
+  sellerId    Int
+  reviews     Review[]
 }
+
+model Seller {
+  id       Int       @id @default(autoincrement())
+  name     String
+  bio      String
+  account  Account?
+  products Product[]
+}
+
+model Account {
+  id       Int    @id @default(autoincrement())
+  auth     String
+  sellerId Int    @unique
+  seller   Seller @relation(fields: [sellerId], references: [id])
+}
+
