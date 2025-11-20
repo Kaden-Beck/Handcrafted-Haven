@@ -1,40 +1,5 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
 # Handcrafted-Haven
 
 **_Team Project for WDD 430 2025 Term 6 Team 16_**
@@ -42,11 +7,14 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## Project Details
 
 - [Project Description](https://byui-cse.github.io/wdd430-ww-course/pages/group-project-description.html)
-- [Figma Boards](https://www.figma.com/files/team/1499161500784673568/project/376430350/Team16-Handcrafted-Haven?fuid=1499161498656515287)
+
+- Next.js for Authentication with GitHub OAuth 2.0
+- Prisma Postgres for Database for product info, user info, auth data.
+- Tailwind CSS with Shadcn for complex styling
 
 ## Production Site
 
-- [Under Construction](https://github.com/)
+- [Vercel Hosting](https://handcrafted-haven-q52txb0ec-kadens-projects-edc5c3d8.vercel.app/)
 
 ## Team Members
 
