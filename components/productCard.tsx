@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { Star } from "lucide-react";
+import Image from 'next/image';
+import { Star } from 'lucide-react';
 
 type Product = {
   id: number;
@@ -15,11 +15,9 @@ type Props = {
   product: Product;
 };
 
-
 export default function ProductCard({ product }: Props) {
   return (
     <div className="bg-white rounded-xl border shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
-      
       {/* Image */}
       <div className="relative w-full h-52">
         <Image
@@ -39,11 +37,8 @@ export default function ProductCard({ product }: Props) {
 
       {/* Content */}
       <div className="p-4 space-y-2">
-        
         {/* Name */}
-        <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">
-          {product.name}
-        </h3>
+        <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">{product.name}</h3>
 
         {/* Seller */}
         <p className="text-sm text-gray-500">
@@ -56,7 +51,7 @@ export default function ProductCard({ product }: Props) {
             <Star
               key={i}
               className={`w-4 h-4 ${
-                i < product.rating ? "fill-yellow-400" : "fill-gray-300 text-gray-300"
+                i < product.rating ? 'fill-yellow-400' : 'fill-gray-300 text-gray-300'
               }`}
             />
           ))}
@@ -64,9 +59,7 @@ export default function ProductCard({ product }: Props) {
 
         {/* Price */}
         <div className="flex items-center gap-2">
-          <p className="text-xl font-bold text-gray-900">
-            ${product.price}
-          </p>
+          <p className="text-xl font-bold text-gray-900">${product.price}</p>
 
           {product.discount && (
             <p className="text-sm line-through text-gray-400">
@@ -83,4 +76,3 @@ export default function ProductCard({ product }: Props) {
     </div>
   );
 }
-
