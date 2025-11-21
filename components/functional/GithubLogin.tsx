@@ -4,9 +4,9 @@ import { signIn } from 'next-auth/react';
 import { useState, useTransition } from 'react';
 import { Button } from '../ui/button';
 
-export default function SignIn({
+export default function GithubLogin({
   provider = 'github',
-  callbackUrl = '/',
+  callbackUrl = '/api/auth/callback/github',
 }: {
   provider?: string;
   callbackUrl?: string;
@@ -26,7 +26,7 @@ export default function SignIn({
   };
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div>
       <Button
         variant="outline"
         type="button"
