@@ -14,7 +14,7 @@ export default function SignupPage() {
       </div>
       <div className="bg-muted relative hidden lg:block">
         <Image
-          src="/placeholder.svg"
+          src="/signup.svg"
           alt="Handcrafted marketplace preview"
           fill
           priority
