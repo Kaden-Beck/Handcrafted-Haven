@@ -22,14 +22,7 @@ export function Header() {
       label: 'Sellers',
       href: '/sellers',
     },
-    {
-      label: 'Contact',
-      href: '/contact',
-    },
-    {
-      label: 'About',
-      href: '/about',
-    }
+  
   ];
 
   React.useEffect(() => {
