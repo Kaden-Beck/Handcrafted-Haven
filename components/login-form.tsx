@@ -2,7 +2,7 @@
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import GithubLogin from './functional/GithubLogin';
+import GithubLogin from './functional/github-login';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   return (

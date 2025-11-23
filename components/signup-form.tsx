@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
-import GithubRegister from './functional/GithubRegister';
+import GithubRegister from './functional/github-register';
 
 export function SignupForm({ className, ...props }: React.ComponentProps<'div'>) {
   return (

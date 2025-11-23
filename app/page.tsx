@@ -1,7 +1,7 @@
 import Hero from '@/components/ui/hero';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import ProductCardHome from '@/components/ui/ProductCardHome';
+import ProductCardHome from '@/components/ui/product-card-home';
 
 export default function Home() {
   return (

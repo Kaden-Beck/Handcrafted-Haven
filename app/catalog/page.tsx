@@ -1,9 +1,5 @@
 import ProductCard from '@/components/productCard';
 
-// export  function Catalog() {
-//   return <h1>Catalog</h1>;
-// }
-
 export default function Home() {
   // 👉 Test data here
   const products = [

@@ -22,7 +22,6 @@ export function Header() {
       label: 'Sellers',
       href: '/sellers',
     },
-  
   ];
 
   React.useEffect(() => {
