@@ -116,6 +116,23 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable',
 });
 
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  type: 'type',
+  image_src: 'image_src',
+  sellerId: 'sellerId',
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  review: 'review',
+  productId: 'productId',
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -123,6 +140,7 @@ exports.Prisma.UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   bio: 'bio',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 };
@@ -168,23 +186,6 @@ exports.Prisma.AuthenticatorScalarFieldEnum = {
   transports: 'transports',
 };
 
-exports.Prisma.ProductScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  price: 'price',
-  type: 'type',
-  image_src: 'image_src',
-  sellerId: 'sellerId',
-};
-
-exports.Prisma.ReviewScalarFieldEnum = {
-  id: 'id',
-  rating: 'rating',
-  review: 'review',
-  productId: 'productId',
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc',
@@ -201,13 +202,13 @@ exports.Prisma.NullsOrder = {
 };
 
 exports.Prisma.ModelName = {
+  Product: 'Product',
+  Review: 'Review',
   User: 'User',
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
-  Product: 'Product',
-  Review: 'Review',
 };
 
 /**

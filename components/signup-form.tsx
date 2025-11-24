@@ -1,32 +1,86 @@
 import { cn } from '@/lib/utils';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
-import Link from 'next/link';
-import { Logo } from '@/components/logo';
+import { Button } from '@/components/ui/button';
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 import GithubRegister from './functional/github-register';
+import { registerWithCredentialsAction } from '@/app/(auth)/register/actions';
 
 export function SignupForm({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    <div className="flex flex-col items-center">
-      <Link className="mb-3" href="/">
-        <Logo />
-      </Link>
-      <Card className={cn('text-center', className)} {...props}>
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">Create Seller Account</CardTitle>
-          <p className="text-muted-foreground text-sm ">
-            Fill out the form below to start selling today!
-          </p>
-        </CardHeader>
-        <CardContent>
-          <GithubRegister />
-        </CardContent>
-        <CardFooter className="flex flex-row justify-center-safe">
-          <p className="pl-1 pr-1">Already have an account?</p>
-          <Link href="/login" className="underline pl-1 pr-1">
-            Sign in
-          </Link>
-        </CardFooter>
-      </Card>
+    <div className={cn('flex flex-col gap-6', className)} {...props}>
+      <form action={registerWithCredentialsAction} className="flex flex-col gap-6">
+        <FieldGroup>
+          <div className="flex flex-col items-center gap-1 text-center">
+            <h1 className="text-2xl font-bold">Create Seller Account</h1>
+            <p className="text-muted-foreground text-sm text-balance">
+              Fill out the form below to start selling today!
+            </p>
+          </div>
+          <Field>
+            <FieldLabel htmlFor="name">Full Name</FieldLabel>
+            <Input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="John Doe"
+              autoComplete="name"
+              required
+            />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="m@example.com"
+              autoComplete="email"
+              required
+            />
+            <FieldDescription>
+              We&apos;ll use this to contact you. We will not share your email with anyone else.
+            </FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              required
+            />
+            <FieldDescription>Must be at least 8 characters long.</FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
+            <Input
+              id="confirm-password"
+              name="confirm-password"
+              type="password"
+              autoComplete="new-password"
+              required
+            />
+            <FieldDescription>Please confirm your password.</FieldDescription>
+          </Field>
+          <Field>
+            <Button type="submit">Create Account</Button>
+          </Field>
+        </FieldGroup>
+      </form>
+      <FieldSeparator>Or continue with</FieldSeparator>
+      <div className="text-center">
+        <GithubRegister />
+        <FieldDescription className="px-6 text-center">
+          Already have an account? <a href="/login">Sign in</a>
+        </FieldDescription>
+      </div>
     </div>
   );
 }

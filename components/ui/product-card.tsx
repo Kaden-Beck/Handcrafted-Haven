@@ -26,13 +26,6 @@ export default function ProductCard({ product }: Props) {
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
-
-        {/* Discount label */}
-        {product.discount && (
-          <span className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded-lg shadow">
-            -{product.discount}%
-          </span>
-        )}
       </div>
 
       {/* Content */}
@@ -60,18 +53,7 @@ export default function ProductCard({ product }: Props) {
         {/* Price */}
         <div className="flex items-center gap-2">
           <p className="text-xl font-bold text-gray-900">${product.price}</p>
-
-          {product.discount && (
-            <p className="text-sm line-through text-gray-400">
-              ${(product.price / (1 - product.discount / 100)).toFixed(2)}
-            </p>
-          )}
         </div>
-
-        {/* Button */}
-        <button className="w-full mt-2 bg-gray-900 text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition cursor-pointer">
-          Add to cart
-        </button>
       </div>
     </div>
   );

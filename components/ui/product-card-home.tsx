@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 interface ProductCardHomeProps {
   image: string;
@@ -27,14 +27,7 @@ export default function ProductCardHome({ image, title, seller, price }: Product
         <p className="text-sm text-gray-500">by {seller}</p>
         <p className="text-lg font-bold text-amber-600">{price}</p>
 
-        <div className="mt-3 flex gap-2">
-          <button className="bg-amber-600 text-white px-3 py-1 rounded text-sm hover:bg-amber-700 transition">
-            View
-          </button>
-          <button className="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm hover:bg-gray-200 transition">
-            ♥ Wishlist
-          </button>
-        </div>
+
       </div>
     </article>
   );
