@@ -19,14 +19,23 @@ const signupSchema = z
   });
 
 export async function registerWithCredentialsAction(formData: FormData) {
-  const parsed = signupSchema.parse({
+  const result = signupSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
     password: formData.get('password'),
     confirmPassword: formData.get('confirm-password'),
   });
 
-  await executeAction({
+  if (!result.success) {
+    // Get the first error message from Zod
+    const firstError = result.error.errors[0]?.message || 'Invalid input';
+    return {
+      success: false,
+      error: firstError,
+    };
+  }
+  const parsed = result.data;
+  return await executeAction({
     actionFn: async () => {
       const existingUser = await prisma.user.findUnique({
         where: { email: parsed.email },

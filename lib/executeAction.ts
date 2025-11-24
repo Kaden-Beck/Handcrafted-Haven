@@ -7,7 +7,7 @@ type Options<T> = {
 
 const executeAction = async <T>({
   actionFn,
-  successMessage = 'The actions was successful',
+  successMessage = 'The action was successful',
 }: Options<T>): Promise<{ success: boolean; message: string }> => {
   try {
     await actionFn();
@@ -21,9 +21,15 @@ const executeAction = async <T>({
       throw error;
     }
 
+    // Log the error for debugging
+    console.error('Error executing action:', error);
+    // Return a more specific error message if available
     return {
       success: false,
-      message: 'An error has occurred during executing the action',
+      message:
+        error instanceof Error
+          ? `Action failed: ${error.message}`
+          : 'An error has occurred during executing the action',
     };
   }
 };

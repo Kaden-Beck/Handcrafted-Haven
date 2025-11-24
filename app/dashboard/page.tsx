@@ -1,7 +1,7 @@
 import { checkAuth } from '@/lib/middleware';
 
 export default async function DashboardPage() {
-  checkAuth();
+  await checkAuth();
 
   return (
     <>

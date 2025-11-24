@@ -27,7 +27,7 @@ export default function ProductCardHome({ image, title, seller, price }: Product
         <p className="text-sm text-gray-500">by {seller}</p>
         <p className="text-lg font-bold text-amber-600">{price}</p>
 
-        <div className="mt-3 flex gap-2"></div>
+
       </div>
     </article>
   );
