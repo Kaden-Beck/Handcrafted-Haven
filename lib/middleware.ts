@@ -3,10 +3,15 @@ import { redirect } from 'next/navigation';
 
 export { auth as middleware } from '@/lib/auth';
 
-export async function checkAuth(request: { url: string }) {
+type RequestLike = { url: string };
+
+export async function checkAuth(request?: RequestLike) {
   const session = await auth();
   if (!session) {
-    const redirectUrl = `/login?redirect=${encodeURIComponent(new URL(request.url).pathname)}`;
-    redirect(redirectUrl);
+    const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined;
+    const baseUrl = process.env.NEXTAUTH_URL || vercelUrl || 'http://localhost:3000';
+    const pathname = request ? new URL(request.url, baseUrl).pathname : undefined;
+    const destination = pathname ? `/login?redirect=${encodeURIComponent(pathname)}` : '/login';
+    redirect(destination);
   }
 }
