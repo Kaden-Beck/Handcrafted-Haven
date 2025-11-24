@@ -16,7 +16,7 @@ export async function loginWithCredentialsAction(formData: FormData) {
   });
 
   if (!parsed.success) {
-    throw new Error('Please provide a valid email and password.');
+    return { error: 'Please provide a valid email and password.' };
   }
 
   return await executeAction({

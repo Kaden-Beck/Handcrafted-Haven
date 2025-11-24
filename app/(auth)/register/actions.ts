@@ -28,7 +28,7 @@ export async function registerWithCredentialsAction(formData: FormData) {
 
   if (!result.success) {
     // Get the first error message from Zod
-    const firstError = result.error.errors[0]?.message || 'Invalid input';
+    const firstError = result.error.issues[0]?.message || 'Invalid input';
     return {
       success: false,
       error: firstError,

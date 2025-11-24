@@ -26,10 +26,7 @@ const executeAction = async <T>({
     // Return a more specific error message if available
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? `Action failed: ${error.message}`
-          : 'An error has occurred during executing the action',
+      message: 'An error occurred while executing the action. Please try again later.',
     };
   }
 };
