@@ -1,6 +1,6 @@
 import { checkAuth } from '@/lib/middleware';
 
-export default function ManageAccount() {
-  checkAuth();
+export default async function ManageAccount() {
+  await checkAuth();
   return <h1>Manage Account</h1>;
 }

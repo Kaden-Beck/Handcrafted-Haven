@@ -1,6 +1,4 @@
-import { auth } from '@/lib/auth';
 import { checkAuth } from '@/lib/middleware';
-import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {
   checkAuth();

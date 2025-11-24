@@ -13,10 +13,7 @@ generator client {
   output   = "./generated/prisma"
 }
 
-
-
 // Models
-
 
 model Product {
   id          Int      @id @default(autoincrement())
@@ -38,7 +35,6 @@ model Review {
   productId Int
 }
 
-
 // Auth.js
 
 model User {
@@ -59,7 +55,7 @@ model User {
 }
 
 model Account {
-  userId            String   @unique
+  userId            String  @unique
   type              String
   provider          String
   providerAccountId String

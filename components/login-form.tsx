@@ -1,9 +1,10 @@
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import GithubLogin from './functional/github-login';
+import { loginWithCredentialsAction } from '@/app/(auth)/login/actions';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   return (
@@ -13,12 +14,19 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>Enter your email below to login to your account</CardDescription>
         </CardHeader>
-        <CardContent>
-          <form>
+        <CardContent className="space-y-6">
+          <form action={loginWithCredentialsAction}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  autoComplete="email"
+                  required
+                />
               </Field>
               <Field>
                 <div className="flex items-center">
@@ -30,17 +38,23 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                />
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
-                <GithubLogin />
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="/register">Sign up</a>
-                </FieldDescription>
               </Field>
             </FieldGroup>
           </form>
+          <GithubLogin />
+          <div className="text-center text-sm">
+            Don&apos;t have an account? <a href="/register">Sign up</a>
+          </div>
         </CardContent>
       </Card>
     </div>

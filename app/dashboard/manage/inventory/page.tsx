@@ -1,7 +1,7 @@
 import { checkAuth } from '@/lib/middleware';
 
-export default function ManageInventory() {
-  checkAuth();
+export default async function ManageInventory() {
+  await checkAuth();
 
   return <span>Manage Inventory Space Holder</span>;
 }
