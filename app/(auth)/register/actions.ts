@@ -27,15 +27,11 @@ export async function registerWithCredentialsAction(formData: FormData) {
   });
 
   if (!result.success) {
-    // Get the first error message from Zod
     const firstError = result.error.issues[0]?.message || 'Invalid input';
-    return {
-      success: false,
-      error: firstError,
-    };
+    throw new Error(firstError);
   }
   const parsed = result.data;
-  return await executeAction({
+  await executeAction({
     actionFn: async () => {
       const existingUser = await prisma.user.findUnique({
         where: { email: parsed.email },
