@@ -16,10 +16,10 @@ export async function loginWithCredentialsAction(formData: FormData) {
   });
 
   if (!parsed.success) {
-    return { error: 'Please provide a valid email and password.' };
+    throw new Error('Please provide a valid email and password.');
   }
 
-  return await executeAction({
+  await executeAction({
     actionFn: async () => {
       await signIn('credentials', {
         email: parsed.data.email,
