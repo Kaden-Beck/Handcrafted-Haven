@@ -24,7 +24,7 @@ export default async function ProductCard({ product }: Props) {
           src={product.image_src}
           alt={product.name}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          className="object-cover group-hover:scale-101 transition-transform duration-300"
         />
       </div>
 

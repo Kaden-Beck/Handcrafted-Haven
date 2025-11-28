@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "prisma:format": "pnpm prisma format",
     "prisma:sync": "pnpm prisma migrate dev",
-    "prisma:studio": "pnpm prisma studio --config ./prisma.config.ts"
+    "prisma:studio": "pnpm prisma studio --config ./prisma.config.ts",
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",

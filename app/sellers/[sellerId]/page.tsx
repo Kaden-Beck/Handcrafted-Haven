@@ -35,9 +35,9 @@ export default async function SellerPage({ params }: { params: { sellerId: strin
         <CardContent>
           <p>{seller?.bio}</p>
         </CardContent>
-        <CardFooter>Products: #</CardFooter>
+        <CardFooter>Products: {sellerProducts.length}</CardFooter>
       </Card>
-      <div>
+      <div className="flex flex-row">
         {sellerProducts.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
