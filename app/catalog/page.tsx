@@ -28,7 +28,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold mb-6 text-center">Catalog</h1>
 
       {/* 👉 Responsive grid here */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 cursor-pointer">
         {products.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
