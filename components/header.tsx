@@ -22,7 +22,7 @@ export function Header() {
     },
     {
       label: 'Sellers',
-      href: '/sellers',
+      href: '/catalog/sellers',
     },
   ];
 
