@@ -1,3 +1,4 @@
+import ProductCardSkeleton from '@/components/skeletons/product-card-skeleton';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function SellerPageSkeleton() {
@@ -35,12 +36,7 @@ export default function SellerPageSkeleton() {
           <Skeleton className="mx-auto h-8 w-64 rounded-lg mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="bg-card border border-border rounded-xl p-4 space-y-3">
-                <Skeleton className="h-40 w-full rounded-lg" />
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-                <Skeleton className="h-5 w-1/3" />
-              </div>
+              <ProductCardSkeleton key={index} />
             ))}
           </div>
         </div>

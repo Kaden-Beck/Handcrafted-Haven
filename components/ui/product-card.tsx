@@ -1,28 +1,53 @@
 import Image from 'next/image';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
-import type { Product } from '@/prisma/generated/prisma';
+import type { Product, User } from '@/prisma/generated/prisma';
+import { notFound } from 'next/navigation';
+
+type ProductWithSeller = Product & { seller?: User | null };
 
 type Props = {
-  product: Product;
+  product?: ProductWithSeller;
+  productId?: Product['id'];
 };
 
-export default async function ProductCard({ product }: Props) {
-  const seller = await prisma.user.findUniqueOrThrow({
-    where: {
-      id: product.sellerId,
-    },
-  });
+export default async function ProductCard({ product, productId }: Props) {
+  let productData: ProductWithSeller | null = product ?? null;
 
-  const price = Number(product.price);
+  // Allow fetching when only an id is provided.
+  if (!productData && typeof productId === 'number') {
+    productData = await prisma.product.findUnique({
+      where: { id: productId },
+      include: { seller: true },
+    });
+  }
+
+  if (!productData) {
+    notFound();
+  }
+
+  const resolvedProduct = productData;
+
+  let seller = resolvedProduct.seller;
+  if (!seller) {
+    seller = await prisma.user.findUnique({
+      where: { id: resolvedProduct.sellerId },
+    });
+  }
+
+  if (!seller) {
+    notFound();
+  }
+
+  const price = Number(resolvedProduct.price);
 
   return (
     <div className="bg-card text-foreground rounded-xl border border-border shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
       {/* Image */}
       <div className="relative w-full h-52 bg-muted">
         <Image
-          src={product.image_src}
-          alt={product.name}
+          src={resolvedProduct.image_src}
+          alt={resolvedProduct.name}
           fill
           className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
         />
@@ -31,7 +56,7 @@ export default async function ProductCard({ product }: Props) {
       {/* Content */}
       <div className="p-4 space-y-2">
         {/* Name */}
-        <h3 className="text-lg font-semibold line-clamp-1">{product.name}</h3>
+        <h3 className="text-lg font-semibold line-clamp-1">{resolvedProduct.name}</h3>
 
         {/* Seller */}
         <Link href={`/catalog/${seller.id}`}>

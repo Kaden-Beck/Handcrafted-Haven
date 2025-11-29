@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/empty';
 import Link from 'next/link';
 
-export function SellerNotFound() {
+export default function SellerNotFound() {
   return (
     <div className="flex w-full items-center justify-center">
       <div className="flex h-screen items-center border-x">
