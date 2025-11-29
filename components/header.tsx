@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { createPortal } from 'react-dom';
 import { MenuToggleIcon } from '@/components/menu-toggle-icon';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -11,7 +10,6 @@ import { cn } from '@/lib/utils';
 export function Header() {
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
-  const pathname = usePathname();
   const navRef = React.useRef<HTMLElement | null>(null);
   const [navHeight, setNavHeight] = React.useState(64);
 
@@ -22,7 +20,7 @@ export function Header() {
     },
     {
       label: 'Sellers',
-      href: '/catalog/sellers',
+      href: '/sellers',
     },
   ];
 
@@ -72,16 +70,9 @@ export function Header() {
         </Link>
         <div className="hidden items-center gap-2 md:flex">
           {links.map((link, i) => (
-            <Link
-              href={link.href}
-              key={i}
-              className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                pathname === link.href && 'underline font-bold text-amber-600 underline-offset-4'
-              )}
-            >
+            <a className={buttonVariants({ variant: 'ghost' })} href={link.href} key={i}>
               {link.label}
-            </Link>
+            </a>
           ))}
           <Link href="/login">
             <Button variant="outline">Sign In</Button>
@@ -105,19 +96,16 @@ export function Header() {
       <MobileMenu className="flex flex-col justify-between gap-2" offset={navHeight} open={open}>
         <div className="grid gap-y-2">
           {links.map((link) => (
-            <Link
+            <a
+              className={buttonVariants({
+                variant: 'ghost',
+                className: 'justify-start',
+              })}
               href={link.href}
               key={link.label}
-              className={cn(
-                buttonVariants({
-                  variant: 'ghost',
-                  className: 'justify-start',
-                }),
-                pathname === link.href && 'underline font-bold text-amber-600 underline-offset-4'
-              )}
             >
               {link.label}
-            </Link>
+            </a>
           ))}
         </div>
         <div className="flex flex-col gap-2">
