@@ -1,4 +1,4 @@
-import ProductCard from '@/components/ui/product-card';
+import ProductCard from '@/components/product-card';
 import prisma from '@/lib/prisma';
 import { Product } from '@/prisma/generated/prisma';
 

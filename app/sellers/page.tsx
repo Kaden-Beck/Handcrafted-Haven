@@ -46,12 +46,12 @@ export default async function SellersPage() {
         {/* Sellers Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sellers.map((seller) => (
-            <Link key={seller.id} href={`/catalog/${seller.id}`} className="group">
+            <Link key={seller.id} href={`/catalog/${seller.id}`}>
               <div className="bg-card border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-full flex flex-col hover:-translate-y-1">
                 {/* Seller Image */}
                 <div className="relative w-full h-48 overflow-hidden bg-muted">
                   <Image
-                    src={seller?.image ?? 'default.png'}
+                    src={seller?.image ?? 'josue.png'}
                     alt={seller?.name ?? 'seller'}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

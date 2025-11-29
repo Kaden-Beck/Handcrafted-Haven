@@ -3,10 +3,11 @@ import { Product, User } from '@/prisma/generated/prisma';
 
 import Link from 'next/link';
 
-import ProductCard from '@/components/ui/product-card';
+import ProductCard from '@/components/product-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { notFound } from 'next/navigation';
 import { Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default async function SellerPage({ params }: { params: { sellerId: string } }) {
   // get sellerId from URL params
@@ -93,14 +94,14 @@ export default async function SellerPage({ params }: { params: { sellerId: strin
             </div>
           </div>
           {/* Back to Sellers Link */}
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+          <Button size="lg" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
             <Link
               href="/sellers"
               className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2 px-4 rounded-lg shadow-sm transition-colors"
             >
               ← Back to All Sellers
             </Link>
-          </div>
+          </Button>
         </div>
       </div>
     );
