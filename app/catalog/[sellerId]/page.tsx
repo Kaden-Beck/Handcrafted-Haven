@@ -3,7 +3,7 @@ import { Product, User } from '@/prisma/generated/prisma';
 
 import Link from 'next/link';
 
-import ProductCard from '@/components/ui/product-card';
+import ProductCard from '@/components/product-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { notFound } from 'next/navigation';
 import { Mail } from 'lucide-react';

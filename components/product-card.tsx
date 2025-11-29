@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma';
 import Link from 'next/link';
 import type { Product, User } from '@/prisma/generated/prisma';
 import { notFound } from 'next/navigation';
+import { Card, CardTitle, CardDescription, CardContent, CardFooter } from './ui/card';
 
 type ProductWithSeller = Product & { seller?: User | null };
 
@@ -42,8 +43,8 @@ export default async function ProductCard({ product, productId }: Props) {
   const price = Number(resolvedProduct.price);
 
   return (
-    <div className="bg-card text-foreground rounded-xl border border-border shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
-      {/* Image */}
+    <Card className="bg-card text-foreground border-border shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group gap-0 p-0 py-0">
+      {/* Product Image */}
       <div className="relative w-full h-52 bg-muted">
         <Image
           src={resolvedProduct.image_src}
@@ -52,25 +53,23 @@ export default async function ProductCard({ product, productId }: Props) {
           className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
         />
       </div>
-
-      {/* Content */}
-      <div className="p-4 space-y-2">
-        {/* Name */}
-        <h3 className="text-lg font-semibold line-clamp-1">{resolvedProduct.name}</h3>
-
+      <CardContent className="p-4 space-y-2">
+        {/* Product Name */}
+        <CardTitle className="text-lg font-semibold line-clamp-1 text-foreground">
+          {resolvedProduct.name}
+        </CardTitle>
         {/* Seller */}
         <Link href={`/catalog/${seller.id}`}>
-          <p className="text-sm text-muted-foreground">
+          <CardDescription className="text-sm">
             Seller:
             <span className="font-medium text-foreground"> {seller.name}</span>
-          </p>
+          </CardDescription>
         </Link>
-
         {/* Price */}
-        <div className="flex items-center gap-2">
+        <CardFooter className="px-0 pt-2">
           <p className="text-xl font-semibold text-primary">${price.toFixed(2)}</p>
-        </div>
-      </div>
-    </div>
+        </CardFooter>
+      </CardContent>
+    </Card>
   );
 }

@@ -1,5 +1,5 @@
 import { LoginForm } from '@/components/login-form';
-import { Logo } from '@/components/logo';
+import { Logo } from '@/components/ui/logo';
 import { auth } from '@/lib/auth';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
