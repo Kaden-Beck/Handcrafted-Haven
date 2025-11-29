@@ -8,7 +8,7 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <section>
-        <Hero src="/hero.webp" alt="Handcrafted Haven Hero">
+        <Hero src="/images/hero.webp" alt="Handcrafted Haven Hero">
           <p className="text-sm uppercase tracking-wide text-white">Autumn Extravaganza</p>
           <h1 className="text-3xl sm:text-5xl font-semibold text-white">
             Handcrafted pieces for every room.
