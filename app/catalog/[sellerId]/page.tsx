@@ -2,7 +2,6 @@ import prisma from '@/lib/prisma';
 import { Product, User } from '@/prisma/generated/prisma';
 
 import Link from 'next/link';
-import Image from 'next/image';
 
 import ProductCard from '@/components/ui/product-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';

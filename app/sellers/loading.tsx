@@ -1,3 +1,5 @@
-export default function LoadingSellers() {
-  return <h1>Loading Sellers Page...</h1>;
+import SellersSkeleton from '@/components/skeletons/sellers-skeleton';
+
+export default function SellersLoading() {
+  return <SellersSkeleton />;
 }
