@@ -29,17 +29,7 @@ export default async function SellerPage({ params }: { params: { sellerId: strin
     // if data retrieved successfully return seller page
     return (
       <div className="pb-4">
-        {/* Hero Section with Seller Image */}
-        <div className=" sm:h-40 lg:h-40 bg-card overflow-hidden">
-          <Image
-            src={seller?.image ?? 'default.png'}
-            alt={seller?.name ?? 'No Name'}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-
+        <div className=" sm:h-40 lg:h-40 bg-card overflow-hidden"></div>
         {/* Seller Info Section */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-10 mb-12">
           <div className="bg-card rounded-xl border border-border shadow-sm hover:shadow-lg p-6 sm:p-8">

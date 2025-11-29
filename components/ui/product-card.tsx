@@ -34,7 +34,7 @@ export default async function ProductCard({ product }: Props) {
         <h3 className="text-lg font-semibold line-clamp-1">{product.name}</h3>
 
         {/* Seller */}
-        <Link href={`/sellers/${seller.id}`}>
+        <Link href={`/catalog/${seller.id}`}>
           <p className="text-sm text-muted-foreground">
             Seller:
             <span className="font-medium text-foreground"> {seller.name}</span>
