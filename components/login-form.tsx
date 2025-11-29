@@ -5,6 +5,7 @@ import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import GithubLogin from './functional/github-login';
 import { loginWithCredentialsAction } from '@/app/(auth)/login/actions';
+import { Separator } from '@radix-ui/react-separator';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   return (
@@ -32,7 +33,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
                   <a
-                    href="#"
+                    href="/register"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
