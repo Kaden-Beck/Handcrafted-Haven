@@ -1,3 +1,5 @@
-export default function SellerPageSkeleton() {
-  return <span>Seller Page Loading...</span>;
+import SellerPageSkeleton from '@/components/skeletons/seller-page-skeleton';
+
+export default function SellerPageLoading() {
+  return <SellerPageSkeleton />;
 }

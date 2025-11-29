@@ -1,3 +1,5 @@
-export default function HomeSkeleton() {
-  return <span>Home Loading...</span>;
+import HomeSkeleton from '@/components/skeletons/home-skeleton';
+
+export default function HomeLoading() {
+  return <HomeSkeleton />;
 }
