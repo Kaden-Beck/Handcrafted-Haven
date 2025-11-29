@@ -38,7 +38,7 @@ npx prisma generate
 
 ## Production Site
 
-- [Vercel Hosting](https://handcrafted-haven-q52txb0ec-kadens-projects-edc5c3d8.vercel.app/)
+- [Vercel Hosting](https://handcrafted-haven-tawny-alpha.vercel.app/)
 
 ## Team Members
 
