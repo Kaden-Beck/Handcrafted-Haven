@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import ProductCard from '@/components/ui/product-card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { Mail } from 'lucide-react';
 
 export default async function SellerPage({ params }: { params: { sellerId: string } }) {

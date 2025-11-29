@@ -1,5 +1,4 @@
 import { Card } from '@/components/ui/card';
-import ProductCard from '@/components/ui/product-card';
 
 export default function LoadingHome() {
   return (

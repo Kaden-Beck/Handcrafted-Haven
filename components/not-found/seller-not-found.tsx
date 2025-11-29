@@ -1,4 +1,4 @@
-import { Compass, Home } from 'lucide-react';
+import { Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Empty,
