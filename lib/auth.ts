@@ -7,7 +7,7 @@ import { compare } from 'bcryptjs';
 import { z } from 'zod';
 
 const credentialsSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
 });
 
@@ -50,5 +50,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   pages: {
     signIn: '/login',
+    newUser: '/register',
   },
 });
