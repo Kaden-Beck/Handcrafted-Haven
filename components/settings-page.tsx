@@ -1,17 +1,31 @@
 'use client';
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { User, Menu, X, ShoppingBag } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
+import AccountManagement from './account-management';
+import ProductManagement from './product-management';
 
 const sidebarItems = [
-  { id: 'profile', label: 'Profile', icon: User, href: '/dashboard/account' },
-  { id: 'products', label: 'Products', icon: ShoppingBag, href: '/dashboard/products' },
+  { id: 'profile', label: 'Profile', icon: User },
+  { id: 'products', label: 'Products', icon: ShoppingBag },
 ];
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export function SettingsPage() {
+  const [activeSection, setActiveSection] = useState('profile');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'profile':
+        return <ProfileSection />;
+      case 'products':
+        return <ProductSection />;
+      default:
+        return <ProfileSection />;
+    }
+  };
 
   return (
     <div className="bg-background min-h-screen">
@@ -34,17 +48,22 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             {sidebarItems.map((item) => {
               const Icon = item.icon;
               return (
-                <a
+                <button
                   key={item.id}
-                  href={item.href}
+                  onClick={() => {
+                    setActiveSection(item.id);
+                    setSidebarOpen(false);
+                  }}
                   className={cn(
                     'flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                    'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                    activeSection === item.id
+                      ? 'bg-secondary text-secondary-foreground'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
                   )}
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
-                </a>
+                </button>
               );
             })}
           </nav>
@@ -54,7 +73,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       {/* Main content */}
       <div className="lg:ml-64">
         <div className="p-6 lg:p-8">
-          <div className="mx-auto max-w-4xl">{children}</div>
+          <div className="mx-auto max-w-4xl">{renderContent()}</div>
         </div>
       </div>
 
@@ -67,4 +86,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       )}
     </div>
   );
+}
+
+function ProfileSection() {
+  return <AccountManagement />;
+}
+
+function ProductSection() {
+  return <ProductManagement />;
 }
