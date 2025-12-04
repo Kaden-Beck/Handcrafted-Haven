@@ -1,21 +1,41 @@
 import prisma from '@/lib/prisma';
+import { Product, User } from '@/prisma/generated/prisma';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
+type ProductWithSeller = Product & { seller: User };
+
 export default async function ProductPage({ params }: { params: { productId: string } }) {
-  const { productId } = await params;
+  let product: ProductWithSeller;
+  let user: User;
+
+  const { productId } = params;
 
   if (!productId) {
     notFound();
   }
 
-  let product;
+  try {
+    // const session = await auth();
+    // if (!session) redirect('/login');
+    // const user = await prisma.user.findUnique({ where: { id: session.user?.id } });
+
+    const foundUser = await prisma.user.findFirst();
+
+    if (!foundUser) {
+      redirect('/login');
+    }
+    user = foundUser;
+  } catch (error) {
+    redirect('/dashboard/products');
+  }
 
   try {
     product = await prisma.product.findUniqueOrThrow({
@@ -27,9 +47,24 @@ export default async function ProductPage({ params }: { params: { productId: str
         reviews: true,
       },
     });
+
+    if (product.sellerId != user?.id) {
+      notFound();
+    }
   } catch (error) {
     console.log(error);
     notFound();
+  }
+
+  // Fetch the seller details using the sellerId
+  const seller = await prisma.user.findUnique({
+    where: { id: product.sellerId },
+  });
+
+  if (!seller) {
+    notFound();
+  } else {
+    product = { ...product, seller };
   }
 
   // const reviews = product.reviews ?? [];
