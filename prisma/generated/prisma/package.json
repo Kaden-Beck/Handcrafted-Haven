@@ -109,10 +109,10 @@
     },
     "./*": "./*"
   },
-  "version": "7.0.1",
+  "version": "7.1.0",
   "sideEffects": false,
   "dependencies": {
-    "@prisma/client-runtime-utils": "7.0.1"
+    "@prisma/client-runtime-utils": "7.1.0"
   },
   "imports": {
     "#wasm-compiler-loader": {

@@ -27,11 +27,11 @@ export default function SellerNotFound() {
             <EmptyContent>
               <div className="flex gap-2">
                 <Button asChild>
-                  <Link href="/catalog">← Back to Catalog</Link>
+                  <Link href="/dashboard/products">← Back to Products</Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/sellers">
-                    <Compass /> Sellers
+                  <Link href="/dashboard/account">
+                    <Compass /> Account Home
                   </Link>
                 </Button>
               </div>

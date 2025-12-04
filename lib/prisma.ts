@@ -18,9 +18,4 @@ const adapter = new PrismaPg(pool);
 
 const prisma = globalThis.prisma ?? new PrismaClient({ adapter });
 
-if (process.env.NODE_ENV !== 'production') {
-  globalThis.prisma = prisma;
-  globalThis.prismaPgPool = pool;
-}
-
 export default prisma;

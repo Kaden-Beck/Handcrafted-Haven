@@ -5,9 +5,10 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/lib/prisma';
 import { compare } from 'bcryptjs';
 import { z } from 'zod';
+import { User } from '@/prisma/generated/prisma';
 
 const credentialsSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
 });
 
@@ -26,8 +27,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         const { email, password } = parsed.data;
 
-        const user = await prisma.user.findUnique({
-          where: { email },
+        const user: User | null = await prisma.user.findUnique({
+          where: { email: email },
         });
 
         if (!user?.passwordHash) {
@@ -50,5 +51,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   pages: {
     signIn: '/login',
+    newUser: '/register',
   },
 });
