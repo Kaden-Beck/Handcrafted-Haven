@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { auth } from '@/lib/auth';
@@ -10,15 +10,15 @@ import { redirect } from 'next/navigation';
 import { User } from '@/prisma/generated/prisma';
 
 export default async function AccountManagement() {
-  let user: User | null = null;
+  let user: User;
   const session = await auth();
-  // if (!session) redirect('/login');
+  if (!session) redirect('/login');
 
   try {
-    // user = await prisma.user.findUnique({ where: { id: session.user?.id } });
+    user = await prisma.user.findUniqueOrThrow({ where: { id: session.user?.id } });
 
-    user = await prisma.user.findFirst();
-    if (user == null) redirect('/login');
+    // user = await prisma.user.findFirst();
+    // if (user == null) redirect('/login');
   } catch (error) {
     console.log(error);
     redirect('/login');

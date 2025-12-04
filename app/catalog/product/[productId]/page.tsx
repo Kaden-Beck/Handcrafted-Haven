@@ -34,6 +34,7 @@ export default async function ProductPage({ params }: { params: { productId: str
     }
     user = foundUser;
   } catch (error) {
+    console.log(error);
     redirect('/dashboard/products');
   }
 

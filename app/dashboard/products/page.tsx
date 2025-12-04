@@ -1,10 +1,10 @@
 import prisma from '@/lib/prisma';
 import { Product, User } from '@/prisma/generated/prisma';
-
+import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import ProductCardSeller from '@/components/product-card-seller';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,21 +17,21 @@ import {
 } from '@/components/ui/select';
 
 export default async function ProductManagement() {
-  let user: User;
+  // let user: User;
   let sellerProducts: Product[] = [];
 
   try {
-    // const session = await auth();
-    // if (!session) redirect('/login');
-    // const foundUser = await prisma.user.findUnique({ where: { id: session.user?.id } });
+    const session = await auth();
+    if (!session) redirect('/login');
+    const user: User = await prisma.user.findUniqueOrThrow({ where: { id: session.user?.id } });
 
-    const foundUser = await prisma.user.findFirst();
+    // const foundUser = await prisma.user.findFirst();
 
-    if (!foundUser) {
-      redirect('/login');
-    }
+    // if (!foundUser) {
+    //   redirect('/login');
+    // }
 
-    user = foundUser;
+    // user = foundUser;
 
     sellerProducts = await prisma.user.findUniqueOrThrow({ where: { id: user.id } }).products();
   } catch (error) {
