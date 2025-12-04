@@ -16,7 +16,7 @@ export default async function ProductPage({ params }: { params: { productId: str
   let product: ProductWithSeller;
   let user: User;
 
-  const { productId } = params;
+  const { productId } = await params;
 
   if (!productId) {
     notFound();
