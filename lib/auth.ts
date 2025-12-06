@@ -13,7 +13,8 @@ const credentialsSchema = z.object({
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  session: { strategy: 'database' },
+  // ✅ Switch to JWT sessions for local dev
+  session: { strategy: 'jwt' },
   providers: [
     GitHub,
     Credentials({
@@ -50,5 +51,21 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   pages: {
     signIn: '/login',
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      // Attach user.id to the JWT
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Expose user.id in the session object
+      if (token?.id) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
   },
 });

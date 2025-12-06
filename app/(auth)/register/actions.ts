@@ -18,6 +18,11 @@ const signupSchema = z
     path: ['confirmPassword'],
   });
 
+export async function githubRegisterAction() {
+  await signIn('github', { redirectTo: '/dashboard' });
+}
+
+
 export async function registerWithCredentialsAction(formData: FormData) {
   const result = signupSchema.safeParse({
     name: formData.get('name'),
@@ -61,6 +66,25 @@ export async function registerWithCredentialsAction(formData: FormData) {
   });
 }
 
-export async function githubRegisterAction() {
-  await signIn('github', { redirectTo: '/dashboard' });
+// 👉 Quick helper to insert a test user directly
+export async function seedTestUser() {
+  const email = 'test@artisan.com';
+  const password = 'test1234';
+
+  const existing = await prisma.user.findUnique({ where: { email } });
+  if (existing) {
+    return { message: 'Test user already exists' };
+  }
+
+  const passwordHash = await hash(password, 12);
+
+  await prisma.user.create({
+    data: {
+      name: 'Test Artisan',
+      email,
+      passwordHash,
+    },
+  });
+
+  return { message: 'Seeded test user', email, password };
 }

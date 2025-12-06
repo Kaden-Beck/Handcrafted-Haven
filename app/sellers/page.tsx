@@ -51,7 +51,7 @@ export default async function SellersPage() {
                 {/* Seller Image */}
                 <div className="relative w-full h-48 overflow-hidden bg-muted">
                   <Image
-                    src={seller?.image ?? 'josue.png'}
+                    src={seller?.image ?? '/images/josue.png'}
                     alt={seller?.name ?? 'seller'}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

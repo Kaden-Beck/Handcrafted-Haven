@@ -25,14 +25,16 @@ model Product {
   seller      User     @relation(fields: [sellerId], references: [id], onDelete: Cascade)
   sellerId    String
   reviews     Review[]
+  orders      Order[]
 }
 
 model Review {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   rating    Int
   review    String?
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
+  createdAt DateTime @default(now())
 }
 
 // Auth.js
@@ -49,6 +51,8 @@ model User {
   sessions       Session[]
   authenticators Authenticator[]
   products       Product[]
+  orders         Order[]
+  messages       Message[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -106,4 +110,23 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  buyer     User     @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  buyerId   String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  quantity  Int      @default(1)
+  total     Decimal
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  senderId  String
+  createdAt DateTime @default(now())
 }

@@ -14,14 +14,8 @@ export function Header() {
   const [navHeight, setNavHeight] = React.useState(64);
 
   const links = [
-    {
-      label: 'Catalog',
-      href: '/catalog',
-    },
-    {
-      label: 'Sellers',
-      href: '/sellers',
-    },
+    { label: 'Catalog', href: '/catalog' },
+    { label: 'Sellers', href: '/sellers' },
   ];
 
   React.useEffect(() => {
@@ -37,9 +31,7 @@ export function Header() {
 
   React.useLayoutEffect(() => {
     const node = navRef.current;
-    if (!node) {
-      return;
-    }
+    if (!node) return;
 
     const updateHeight = () => setNavHeight(node.offsetHeight);
     updateHeight();
@@ -56,36 +48,85 @@ export function Header() {
 
   return (
     <header
-      className={cn('sticky top-0 z-50 w-full border-transparent border-b', {
-        'border-border bg-background/95 backdrop-blur-lg supports-backdrop-filter:bg-background/50':
-          scrolled,
-      })}
+      className={cn(
+        'sticky top-0 z-50 w-full border-b transition-all duration-300',
+        scrolled
+          ? 'border-[#fb8500]/30 bg-[#023047]/95 backdrop-blur-lg supports-backdrop-filter:bg-[#023047]/90'
+          : 'border-transparent bg-white'
+      )}
     >
       <nav
         ref={navRef}
         className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 md:py-4"
       >
-        <Link href="/" className="rounded-md p-1 h- hover:bg-accent" aria-label="Home">
-          <span className="text-3xl font-serif">Handcrafted Haven</span>
+        <Link href="/" className="rounded-md p-1 hover:bg-[#fb8500]/20 transition" aria-label="Home">
+          <span className={cn(
+            "text-3xl font-serif font-black transition-colors",
+            scrolled ? "text-[#ffb703]" : "text-[#023047]"
+          )}>
+            Handcrafted Haven
+          </span>
         </Link>
+
+        {/* Desktop Navigation */}
         <div className="hidden items-center gap-2 md:flex">
           {links.map((link, i) => (
-            <a className={buttonVariants({ variant: 'ghost' })} href={link.href} key={i}>
+            <a
+              key={i}
+              href={link.href}
+              className={buttonVariants({
+                variant: 'ghost',
+                className: cn(
+                  'font-medium transition-all duration-200 rounded-lg',
+                  scrolled
+                    ? 'text-white hover:bg-white/10 hover:text-[#ffb703]'
+                    : 'text-[#023047] hover:bg-[#023047]/10 hover:text-[#023047]'
+                ),
+              })}
+            >
               {link.label}
             </a>
           ))}
+
           <Link href="/login">
-            <Button variant="outline">Sign In</Button>
+            <Button
+              variant="outline"
+              className={cn(
+                'font-medium transition-all duration-200',
+                scrolled
+                  ? 'border-white/30 text-white hover:bg-white/10 hover:text-[#ffb703]'
+                  : 'border-[#023047] text-[#023047] hover:bg-[#023047]/10'
+              )}
+            >
+              Sign In
+            </Button>
           </Link>
+
           <Link href="/register">
-            <Button>Get Started</Button>
+            <Button
+              className={cn(
+                'font-bold shadow-lg transition-all duration-300',
+                scrolled
+                  ? 'bg-[#ffb703] text-[#023047] hover:bg-[#fb8500] hover:shadow-[#ffb703]/30'
+                  : 'bg-[#ffb703] text-[#023047] hover:bg-[#fb8500]'
+              )}
+            >
+              Get Started
+            </Button>
           </Link>
         </div>
+
+        {/* Mobile Toggle */}
         <Button
           aria-controls="mobile-menu"
           aria-expanded={open}
           aria-label="Toggle menu"
-          className="md:hidden"
+          className={cn(
+            'md:hidden transition-all duration-200',
+            scrolled
+              ? 'border-white/30 text-white hover:bg-white/10'
+              : 'border-[#023047] text-[#023047] hover:bg-[#023047]/10'
+          )}
           onClick={() => setOpen(!open)}
           size="icon"
           variant="outline"
@@ -93,26 +134,30 @@ export function Header() {
           <MenuToggleIcon className="size-5" duration={300} open={open} />
         </Button>
       </nav>
+
+      {/* Mobile Menu */}
       <MobileMenu className="flex flex-col justify-between gap-2" offset={navHeight} open={open}>
         <div className="grid gap-y-2">
           {links.map((link) => (
             <a
+              key={link.label}
+              href={link.href}
               className={buttonVariants({
                 variant: 'ghost',
-                className: 'justify-start',
+                className: 'justify-start text-white hover:bg-white/10 hover:text-[#ffb703] font-medium transition-all',
               })}
-              href={link.href}
-              key={link.label}
             >
               {link.label}
             </a>
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Button className="w-full bg-transparent" variant="outline">
+          <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10">
             Sign In
           </Button>
-          <Button className="w-full">Get Started</Button>
+          <Button className="w-full bg-[#ffb703] text-[#023047] hover:bg-[#fb8500] font-bold shadow-lg">
+            Get Started
+          </Button>
         </div>
       </MobileMenu>
     </header>
@@ -125,28 +170,18 @@ type MobileMenuProps = React.ComponentProps<'div'> & {
 };
 
 function MobileMenu({ open, children, className, offset = 64, ...props }: MobileMenuProps) {
-  if (!open || typeof window === 'undefined') {
-    return null;
-  }
+  if (!open || typeof window === 'undefined') return null;
 
   return createPortal(
     <div
       className={cn(
-        'bg-background/95 backdrop-blur-lg supports-backdrop-filter:bg-background/50',
-        'fixed right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden border-y md:hidden'
+        'bg-[#023047]/95 backdrop-blur-lg supports-backdrop-filter:bg-[#023047]/90',
+        'fixed right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden border-t border-[#fb8500]/30 md:hidden'
       )}
       id="mobile-menu"
       style={{ top: offset }}
     >
-      <div
-        className={cn(
-          'data-[slot=open]:zoom-in-97 ease-out data-[slot=open]:animate-in',
-          'size-full p-4',
-          className
-        )}
-        data-slot={open ? 'open' : 'closed'}
-        {...props}
-      >
+      <div className={cn('size-full p-4', className)} {...props}>
         {children}
       </div>
     </div>,

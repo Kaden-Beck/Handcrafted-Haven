@@ -11,7 +11,9 @@ import { Separator } from '@/components/ui/separator';
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   const { productId } = await params;
 
-  if (!productId) {
+  // THIS IS THE FIX – safe parsing
+  const id = parseInt(productId, 10);
+  if (!productId || isNaN(id)) {
     notFound();
   }
 
@@ -19,18 +21,17 @@ export default async function ProductPage({ params }: { params: { productId: str
 
   try {
     product = await prisma.product.findUniqueOrThrow({
-      where: {
-        id: parseInt(productId),
-      },
+      where: { id },
       include: {
         seller: true,
         reviews: true,
       },
     });
   } catch (error) {
-    console.log(error);
+    console.log("Product not found:", error);
     notFound();
   }
+
 
   // const reviews = product.reviews ?? [];
   // const ratings = reviews.map((review) => review.rating);

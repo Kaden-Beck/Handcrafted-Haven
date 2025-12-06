@@ -1,41 +1,72 @@
-import Hero from '@/components/ui/hero';
-import { Button } from '@/components/ui/button';
+// app/page.tsx
 import Link from 'next/link';
-import ProductCard from '@/components/product-card';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <>
-      {/* Hero Section */}
-      <section>
-        <Hero src="/images/hero.webp" alt="Handcrafted Haven Hero">
-          <p className="text-sm uppercase tracking-wide text-white">Autumn Extravaganza</p>
-          <h1 className="text-3xl sm:text-5xl font-semibold text-white">
-            Handcrafted pieces for every room.
+    <main className="min-h-screen bg-white">
+      {/* HERO SECTION – Full-screen hero with fixed Image error */}
+      <section className="relative h-screen w-full overflow-hidden">
+        {/* Hero Image – fill + sizes fixes the "width" error */}
+        <Image
+          src="/images/hero.webp"
+          alt="Handcrafted Haven – Autumn Collection"
+          fill
+          priority
+          className="object-cover brightness-75"
+          sizes="100vw"
+        />
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#023047]/60" />
+
+        {/* Deep Space Blue overlay */}
+
+        {/* Content */}
+        <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+          <p className="text-sm font-bold uppercase tracking-widest text-[#ffb703]">
+            Autumn Extravaganza
+          </p>
+          <h1 className="mt-6 text-4xl font-black text-white sm:text-6xl lg:text-7xl leading-tight">
+            Handcrafted pieces
+            <br />
+            for every room.
           </h1>
-          <Link href="/catalog">
-            <Button className="w-fit" variant="outline">
+
+          <Link href="/catalog" className="mt-12">
+            <button className="bg-[#ffb703] px-12 py-7 text-xl font-black text-[#023047] rounded-2xl shadow-2xl transition-all hover:bg-[#fb8500] hover:scale-105">
               Shop the catalog
-            </Button>
+            </button>
           </Link>
-        </Hero>
-      </section>
-
-      {/* Handcrafted Products Section */}
-      <section className="mx-auto mb-10 w-full max-w-6xl px-4 py-8 sm:py-10">
-        <h2 className="text-center text-2xl font-semibold tracking-tight sm:text-3xl">
-          Unique Handcrafted Goods Made by Real Artisans
-        </h2>
-
-        <div className="mt-6 flex flex-col gap-4 sm:mt-8 sm:grid sm:grid-cols-2 xl:grid-cols-3">
-          <ProductCard productId={1} />
-          <ProductCard productId={2} />
-          <ProductCard productId={3} />
-          <ProductCard productId={26} />
-          <ProductCard productId={25} />
-          <ProductCard productId={2} />
         </div>
       </section>
-    </>
+
+      {/* FEATURED PRODUCTS SECTION */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-6 text-center">
+          <h2 className="text-4xl font-black text-[#023047] sm:text-5xl lg:text-6xl">
+            Unique Handcrafted Goods
+            <br />
+            Made by Real Artisans
+          </h2>
+
+          <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={i}
+                className="group overflow-hidden rounded-3xl bg-gray-50 shadow-lg transition-all hover:shadow-2xl"
+              >
+                <div className="aspect-square bg-gray-200" />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-[#023047]">Product {i}</h3>
+                  <p className="mt-2 text-[#023047]/70">Handmade with love</p>
+                  <p className="mt-4 text-2xl font-black text-[#fb8500]">$129</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
