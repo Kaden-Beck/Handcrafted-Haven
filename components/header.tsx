@@ -6,8 +6,10 @@ import { MenuToggleIcon } from '@/components/menu-toggle-icon';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { useScroll } from '@/hooks/use-scroll';
 import { cn } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
 
 export function Header() {
+  const { status } = useSession();
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
   const navRef = React.useRef<HTMLElement | null>(null);
@@ -74,12 +76,20 @@ export function Header() {
               {link.label}
             </a>
           ))}
-          <Link href="/login">
-            <Button variant="outline">Sign In</Button>
-          </Link>
-          <Link href="/register">
-            <Button>Get Started</Button>
-          </Link>
+          {status === 'authenticated' ? (
+            <Link href="/dashboard">
+              <Button variant="outline">My Account</Button>
+            </Link>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button variant="outline">Sign In</Button>
+              </Link>
+              <Link href="/register">
+                <Button>Get Started</Button>
+              </Link>
+            </>
+          )}
         </div>
         <Button
           aria-controls="mobile-menu"
@@ -93,7 +103,12 @@ export function Header() {
           <MenuToggleIcon className="size-5" duration={300} open={open} />
         </Button>
       </nav>
-      <MobileMenu className="flex flex-col justify-between gap-2" offset={navHeight} open={open}>
+      <MobileMenu
+        className="flex flex-col justify-between gap-2"
+        offset={navHeight}
+        open={open}
+        status={status}
+      >
         <div className="grid gap-y-2">
           {links.map((link) => (
             <a
@@ -109,10 +124,24 @@ export function Header() {
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Button className="w-full bg-transparent" variant="outline">
-            Sign In
-          </Button>
-          <Button className="w-full">Get Started</Button>
+          {status === 'authenticated' ? (
+            <Link href="/dashboard">
+              <Button className="w-full bg-transparent" variant="outline">
+                My Account
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button className="w-full bg-transparent" variant="outline">
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button className="w-full">Get Started</Button>
+              </Link>
+            </>
+          )}
         </div>
       </MobileMenu>
     </header>
@@ -122,9 +151,17 @@ export function Header() {
 type MobileMenuProps = React.ComponentProps<'div'> & {
   open: boolean;
   offset?: number;
+  status: 'authenticated' | 'loading' | 'unauthenticated';
 };
 
-function MobileMenu({ open, children, className, offset = 64, ...props }: MobileMenuProps) {
+function MobileMenu({
+  open,
+  children,
+  className,
+  offset = 64,
+  status,
+  ...props
+}: MobileMenuProps) {
   if (!open || typeof window === 'undefined') {
     return null;
   }
