@@ -61,11 +61,17 @@ export function Header() {
         ref={navRef}
         className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 md:py-4"
       >
-        <Link href="/" className="rounded-md p-1 hover:bg-[#fb8500]/20 transition" aria-label="Home">
-          <span className={cn(
-            "text-3xl font-serif font-black transition-colors",
-            scrolled ? "text-[#ffb703]" : "text-[#023047]"
-          )}>
+        <Link
+          href="/"
+          className="rounded-md p-1 hover:bg-[#fb8500]/20 transition"
+          aria-label="Home"
+        >
+          <span
+            className={cn(
+              'text-3xl font-serif font-black transition-colors',
+              scrolled ? 'text-[#ffb703]' : 'text-[#023047]'
+            )}
+          >
             Handcrafted Haven
           </span>
         </Link>
@@ -115,7 +121,12 @@ export function Header() {
           <MenuToggleIcon className="size-5" duration={300} open={open} />
         </Button>
       </nav>
-      <MobileMenu className="flex flex-col justify-between gap-2" offset={navHeight} open={open}>
+      <MobileMenu
+        className="flex flex-col justify-between gap-2"
+        offset={navHeight}
+        open={open}
+        status={status} // Pass the status prop here
+      >
         <div className="grid gap-y-2">
           {links.map((link) => (
             <a
@@ -123,7 +134,8 @@ export function Header() {
               href={link.href}
               className={buttonVariants({
                 variant: 'ghost',
-                className: 'justify-start text-white hover:bg-white/10 hover:text-[#ffb703] font-medium transition-all',
+                className:
+                  'justify-start text-white hover:bg-white/10 hover:text-[#ffb703] font-medium transition-all',
               })}
             >
               {link.label}

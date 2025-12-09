@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiHome, FiBox, FiShoppingCart, FiMail, FiSettings } from 'react-icons/fi';
+import { Home, Box, ShoppingCart, Mail, Settings } from 'lucide-react';
 
 interface SidebarProps {
   open: boolean;
@@ -14,22 +14,17 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: <FiHome className="w-5 h-5" /> },
-    { href: '/dashboard/products', label: 'Products', icon: <FiBox className="w-5 h-5" /> },
-    { href: '/dashboard/orders', label: 'Orders', icon: <FiShoppingCart className="w-5 h-5" /> },
-    { href: '/dashboard/messages', label: 'Messages', icon: <FiMail className="w-5 h-5" /> },
-    { href: '/dashboard/settings', label: 'Settings', icon: <FiSettings className="w-5 h-5" /> },
+    { href: '/dashboard', label: 'Dashboard', icon: <Home className="w-5 h-5" /> },
+    { href: '/dashboard/products', label: 'Products', icon: <Box className="w-5 h-5" /> },
+    { href: '/dashboard/orders', label: 'Orders', icon: <ShoppingCart className="w-5 h-5" /> },
+    { href: '/dashboard/messages', label: 'Messages', icon: <Mail className="w-5 h-5" /> },
+    { href: '/dashboard/settings', label: 'Settings', icon: <Settings className="w-5 h-5" /> },
   ];
 
   return (
     <>
       {/* Mobile backdrop */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden"
-          onClick={onClose}
-        />
-      )}
+      {open && <div className="fixed inset-0 bg-black/60 z-40 md:hidden" onClick={onClose} />}
 
       {/* Sidebar — Now using your 3 colors only */}
       <aside
@@ -58,15 +53,14 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     onClick={onClose}
                     className={`
                       flex items-center gap-4 rounded-2xl px-5 py-4 text-base font-semibold transition-all duration-200
-                      ${isActive
-                        ? 'bg-[#fb8500] text-white shadow-lg shadow-[#fb8500]/30 scale-105'
-                        : 'text-white/80 hover:bg-white/10 hover:text-white hover:scale-102'
+                      ${
+                        isActive
+                          ? 'bg-[#fb8500] text-white shadow-lg shadow-[#fb8500]/30 scale-105'
+                          : 'text-white/80 hover:bg-white/10 hover:text-white hover:scale-102'
                       }
                     `}
                   >
-                    <span className={isActive ? 'text-white' : 'text-[#ffb703]'}>
-                      {icon}
-                    </span>
+                    <span className={isActive ? 'text-white' : 'text-[#ffb703]'}>{icon}</span>
                     <span>{label}</span>
                   </Link>
                 );
@@ -75,7 +69,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           </div>
 
           {/* Optional subtle footer accent */}
-          <div className="h-1 bg-gradient-to-r from-[#fb8500] to-[#ffb703]" />
+          <div className="h-1 bg-linear-to-r from-[#fb8500] to-[#ffb703]" />
         </div>
       </aside>
     </>

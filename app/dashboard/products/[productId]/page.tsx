@@ -26,10 +26,5 @@ export default async function UpdateProduct({ params }: { params: { productId: s
     notFound();
   }
 
-  // Ensure `product.price` is defined before calling `toNumber()`
-  const price = product.price?.toNumber() || 0.0;
-
-  return (
-    <ProductEditForm product={product} />
-  );
+  return <ProductEditForm product={product} />;
 }

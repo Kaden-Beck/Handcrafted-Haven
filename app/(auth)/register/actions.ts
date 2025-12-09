@@ -22,7 +22,6 @@ export async function githubRegisterAction() {
   await signIn('github', { redirectTo: '/dashboard' });
 }
 
-
 export async function registerWithCredentialsAction(formData: FormData) {
   const result = signupSchema.safeParse({
     name: formData.get('name'),

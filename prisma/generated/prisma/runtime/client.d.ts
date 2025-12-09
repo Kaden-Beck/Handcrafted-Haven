@@ -88,7 +88,9 @@ export declare type AllModelsToStringIndex<TypeMap extends TypeMapDef, Args exte
     [P in K]: Record<TypeMap['meta']['modelProps'], AllModels>;
 } : {};
 
-export { AnyNull };
+export { AnyNull }
+
+export { AnyNullClass }
 
 export declare type ApplyOmit<T, OmitConfig> = Compute<{
     [K in keyof T as OmitValue<OmitConfig, K> extends true ? never : K]: T[K];
@@ -407,7 +409,9 @@ declare type DataRule = {
     type: 'never';
 };
 
-export { DbNull };
+export { DbNull }
+
+export { DbNullClass }
 
 export declare const Debug: typeof debugCreate & {
     enable(namespace: any): void;
@@ -768,36 +772,41 @@ declare interface Engine<InteractiveTransactionPayload = unknown> {
 }
 
 declare interface EngineConfig {
-  enableDebugLogs?: boolean;
-  prismaPath?: string;
-  logQueries?: boolean;
-  logLevel?: 'info' | 'warn';
-  clientVersion: string;
-  previewFeatures?: string[];
-  activeProvider?: string;
-  logEmitter: LogEmitter;
-  transactionOptions: Transaction_2.Options;
-  /**
-   * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
-   */
-  adapter?: SqlDriverAdapterFactory;
-  /**
-   * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
-   */
-  accelerateUrl?: string;
-  /**
-   * The contents of the schema encoded into a string
-   */
-  inlineSchema: string;
-  /**
-   * The helper for interaction with OTEL tracing
-   * @remarks enabling is determined by the client and @prisma/instrumentation package
-   */
-  tracingHelper: TracingHelper;
-  /**
-   * Web Assembly module loading configuration
-   */
-  compilerWasm?: CompilerWasmLoadingConfig;
+    enableDebugLogs?: boolean;
+    prismaPath?: string;
+    logQueries?: boolean;
+    logLevel?: 'info' | 'warn';
+    clientVersion: string;
+    previewFeatures?: string[];
+    activeProvider?: string;
+    logEmitter: LogEmitter;
+    transactionOptions: Transaction_2.Options;
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
+     */
+    adapter?: SqlDriverAdapterFactory;
+    /**
+     * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
+     */
+    accelerateUrl?: string;
+    /**
+     * The contents of the schema encoded into a string
+     */
+    inlineSchema: string;
+    /**
+     * The helper for interaction with OTEL tracing
+     * @remarks enabling is determined by the client and @prisma/instrumentation package
+     */
+    tracingHelper: TracingHelper;
+    /**
+     * Web Assembly module loading configuration
+     */
+    compilerWasm?: CompilerWasmLoadingConfig;
+    /**
+     * SQL commenter plugins that add metadata to SQL queries as comments.
+     * Each plugin receives query context and returns key-value pairs.
+     */
+    sqlCommenters?: SqlCommenterPlugin[];
 }
 
 declare type EngineEvent<E extends EngineEventType> = E extends QueryEventType ? QueryEvent : LogEvent;
@@ -864,15 +873,15 @@ declare interface ExceptionWithName {
 
 declare type ExtendedEventType = LogLevel | 'beforeExit';
 
-declare type ExtendedSpanOptions = SpanOptions & {
-  /** The name of the span */
-  name: string;
-  internal?: boolean;
-  /** Whether it propagates context (?=true) */
-  active?: boolean;
-  /** The context to append the span to */
-  context?: Context;
-};
+declare interface ExtendedSpanOptions extends SpanOptions {
+    /** The name of the span */
+    name: string;
+    internal?: boolean;
+    /** Whether it propagates context (?=true) */
+    active?: boolean;
+    /** The context to append the span to */
+    context?: Context;
+}
 
 /** $extends, defineExtension */
 export declare interface ExtendsHook<Variant extends 'extends' | 'define', TypeMapCb extends TypeMapCbDef, ExtArgs extends Record<string, any>, TypeMap extends TypeMapDef = Call<TypeMapCb, {
@@ -1592,7 +1601,9 @@ declare type JsonFieldSelection = {
     selection: JsonSelectionSet;
 };
 
-export { JsonNull };
+export { JsonNull }
+
+export { JsonNullClass }
 
 /**
  * From https://github.com/sindresorhus/type-fest/
@@ -1604,33 +1615,14 @@ export declare type JsonObject = {
 };
 
 export declare type JsonQuery = {
-  modelName?: string;
-  action: JsonQueryAction;
-  query: JsonFieldSelection;
+    modelName?: string;
+    action: JsonQueryAction_2;
+    query: JsonFieldSelection;
 };
 
-declare type JsonQueryAction =
-  | 'findUnique'
-  | 'findUniqueOrThrow'
-  | 'findFirst'
-  | 'findFirstOrThrow'
-  | 'findMany'
-  | 'createOne'
-  | 'createMany'
-  | 'createManyAndReturn'
-  | 'updateOne'
-  | 'updateMany'
-  | 'updateManyAndReturn'
-  | 'deleteOne'
-  | 'deleteMany'
-  | 'upsertOne'
-  | 'aggregate'
-  | 'groupBy'
-  | 'executeRaw'
-  | 'queryRaw'
-  | 'runCommandRaw'
-  | 'findRaw'
-  | 'aggregateRaw';
+declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'updateManyAndReturn' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
+
+declare type JsonQueryAction_2 = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'updateManyAndReturn' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
 
 declare type JsonSelectionSet = {
     $scalars?: boolean;
@@ -2005,42 +1997,58 @@ declare type PrismaClientMutuallyExclusiveOptions = {
 };
 
 export declare type PrismaClientOptions = PrismaClientMutuallyExclusiveOptions & {
-  /**
-   * @default "colorless"
-   */
-  errorFormat?: ErrorFormat;
-  /**
-   * The default values for Transaction options
-   * maxWait ?= 2000
-   * timeout ?= 5000
-   */
-  transactionOptions?: Transaction_2.Options;
-  /**
-   * @example
-   * \`\`\`
-   * // Defaults to stdout
-   * log: ['query', 'info', 'warn']
-   *
-   * // Emit as events
-   * log: [
-   *  { emit: 'stdout', level: 'query' },
-   *  { emit: 'stdout', level: 'info' },
-   *  { emit: 'stdout', level: 'warn' }
-   * ]
-   * \`\`\`
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
-   */
-  log?: Array<LogLevel | LogDefinition>;
-  omit?: GlobalOmitOptions;
-  /**
-   * @internal
-   * You probably don't want to use this. \`__internal\` is used by internal tooling.
-   */
-  __internal?: {
-    debug?: boolean;
-    /** This can be used for testing purposes */
-    configOverride?: (config: GetPrismaClientConfig) => GetPrismaClientConfig;
-  };
+    /**
+     * @default "colorless"
+     */
+    errorFormat?: ErrorFormat;
+    /**
+     * The default values for Transaction options
+     * maxWait ?= 2000
+     * timeout ?= 5000
+     */
+    transactionOptions?: Transaction_2.Options;
+    /**
+     * @example
+     * \`\`\`
+     * // Defaults to stdout
+     * log: ['query', 'info', 'warn']
+     *
+     * // Emit as events
+     * log: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     * ]
+     * \`\`\`
+     * Read more in our [docs](https://pris.ly/d/logging).
+     */
+    log?: Array<LogLevel | LogDefinition>;
+    omit?: GlobalOmitOptions;
+    /**
+     * SQL commenter plugins that add metadata to SQL queries as comments.
+     * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
+     *
+     * @example
+     * ```ts
+     * new PrismaClient({
+     *   adapter: new PrismaPg({ connectionString }),
+     *   comments: [
+     *     traceContext(),
+     *     queryInsights(),
+     *   ],
+     * })
+     * ```
+     */
+    comments?: SqlCommenterPlugin[];
+    /**
+     * @internal
+     * You probably don't want to use this. \`__internal\` is used by internal tooling.
+     */
+    __internal?: {
+        debug?: boolean;
+        /** This can be used for testing purposes */
+        configOverride?: (config: GetPrismaClientConfig) => GetPrismaClientConfig;
+    };
 };
 
 export { PrismaClientRustPanicError }
@@ -2880,22 +2888,127 @@ declare interface SpanStatus {
  * An enumeration of status codes.
  */
 declare enum SpanStatusCode {
-  /**
-   * The default status.
-   */
-  UNSET = 0,
-  /**
-   * The operation has been validated by an Application developer or
-   * Operator to have completed successfully.
-   */
-  OK = 1,
-  /**
-   * The operation contains an error.
-   */
-  ERROR = 2,
+    /**
+     * The default status.
+     */
+    UNSET = 0,
+    /**
+     * The operation has been validated by an Application developer or
+     * Operator to have completed successfully.
+     */
+    OK = 1,
+    /**
+     * The operation contains an error.
+     */
+    ERROR = 2
 }
 
-export { Sql };
+export { Sql }
+
+/**
+ * Information about a compacted batch query (e.g. multiple independent
+ * `findUnique` queries automatically merged into a single `SELECT` SQL
+ * statement).
+ */
+declare interface SqlCommenterCompactedQueryInfo {
+    /**
+     * The model name (e.g., "User", "Post").
+     */
+    readonly modelName: string;
+    /**
+     * The Prisma operation (e.g., "findUnique").
+     */
+    readonly action: SqlCommenterQueryAction;
+    /**
+     * The full query objects (selections, arguments, etc.).
+     * Specifics of the query representation are not part of the public API yet.
+     */
+    readonly queries: ReadonlyArray<unknown>;
+}
+
+/**
+ * Context provided to SQL commenter plugins.
+ */
+export declare interface SqlCommenterContext {
+    /**
+     * Information about the Prisma query being executed.
+     */
+    readonly query: SqlCommenterQueryInfo;
+    /**
+     * Raw SQL query generated from this Prisma query.
+     *
+     * It is always available when `PrismaClient` connects to the database and
+     * renders SQL queries directly.
+     *
+     * When using Prisma Accelerate, SQL rendering happens on Accelerate side and the raw
+     * SQL strings are not yet available when SQL commenter plugins are executed.
+     */
+    readonly sql?: string;
+}
+
+/**
+ * A SQL commenter plugin that returns key-value pairs to be added as comments.
+ * Return an empty object to add no comments. Keys with undefined values will be omitted.
+ *
+ * @example
+ * ```ts
+ * const myPlugin: SqlCommenterPlugin = (context) => {
+ *   return {
+ *     application: 'my-app',
+ *     model: context.query.modelName ?? 'raw',
+ *     // Conditional key - will be omitted if ctx.sql is undefined
+ *     sqlLength: context.sql ? String(context.sql.length) : undefined,
+ *   }
+ * }
+ * ```
+ */
+export declare interface SqlCommenterPlugin {
+    (context: SqlCommenterContext): SqlCommenterTags;
+}
+
+/**
+ * Prisma query type corresponding to this SQL query.
+ */
+declare type SqlCommenterQueryAction = JsonQueryAction;
+
+/**
+ * Information about the query or queries being executed.
+ *
+ * - `single`: A single query is being executed
+ * - `compacted`: Multiple queries have been compacted into a single SQL statement
+ */
+export declare type SqlCommenterQueryInfo = ({
+    readonly type: 'single';
+} & SqlCommenterSingleQueryInfo) | ({
+    readonly type: 'compacted';
+} & SqlCommenterCompactedQueryInfo);
+
+/**
+ * Information about a single Prisma query.
+ */
+export declare interface SqlCommenterSingleQueryInfo {
+    /**
+     * The model name (e.g., "User", "Post"). Undefined for raw queries.
+     */
+    readonly modelName?: string;
+    /**
+     * The Prisma operation (e.g., "findMany", "createOne", "queryRaw").
+     */
+    readonly action: SqlCommenterQueryAction;
+    /**
+     * The full query object (selection, arguments, etc.).
+     * Specifics of the query representation are not part of the public API yet.
+     */
+    readonly query: unknown;
+}
+
+/**
+ * Key-value pairs to add as SQL comments.
+ * Keys with undefined values will be omitted from the final comment.
+ */
+export declare type SqlCommenterTags = {
+    readonly [key: string]: string | undefined;
+};
 
 declare interface SqlDriverAdapter extends SqlQueryable {
     /**
@@ -3024,12 +3137,12 @@ declare interface Transaction extends AdapterInfo, SqlQueryable {
 }
 
 declare namespace Transaction_2 {
-  export {
-    Options,
-    IsolationLevel_2 as IsolationLevel,
-    InteractiveTransactionInfo,
-    TransactionHeaders,
-  };
+    export {
+        IsolationLevel_2 as IsolationLevel,
+        Options,
+        InteractiveTransactionInfo,
+        TransactionHeaders
+    }
 }
 
 declare type TransactionHeaders = {

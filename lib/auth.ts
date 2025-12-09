@@ -51,12 +51,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
+      // Attach user.id to the JWT
       if (user) {
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
+      // Expose user.id in the session object
       if (token && session.user) {
         session.user.id = token.id as string;
       }
@@ -66,21 +68,5 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   pages: {
     signIn: '/login',
     newUser: '/register',
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      // Attach user.id to the JWT
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      // Expose user.id in the session object
-      if (token?.id) {
-        session.user.id = token.id as string;
-      }
-      return session;
-    },
   },
 });

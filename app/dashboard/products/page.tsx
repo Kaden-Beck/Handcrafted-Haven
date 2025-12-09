@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import ProductCardSeller from '@/components/product-card-seller';
 import { auth } from '@/lib/auth';
 import prisma from '@/lib/prisma';

@@ -3,7 +3,7 @@ import { Product, User } from '@/prisma/generated/prisma';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -15,8 +15,9 @@ type ProductWithSeller = Product & { seller: User };
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   let product: ProductWithSeller;
   const { productId } = await params;
+  const id = Number(productId);
 
-  if (!productId) {
+  if (!id || Number.isNaN(id)) {
     notFound();
   }
 
@@ -29,10 +30,9 @@ export default async function ProductPage({ params }: { params: { productId: str
       },
     });
   } catch (error) {
-    console.log("Product not found:", error);
+    console.log('Product not found:', error);
     notFound();
   }
-
 
   // const reviews = product.reviews ?? [];
   // const ratings = reviews.map((review) => review.rating);

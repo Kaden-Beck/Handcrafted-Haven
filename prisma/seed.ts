@@ -145,9 +145,27 @@ async function main() {
   // Orders
   await prisma.order.createMany({
     data: [
-      { buyerId: sellers[0].id, productId: products[0].id, quantity: 2, total: new Prisma.Decimal(64), createdAt: new Date(Date.now() - 2 * 3600000) },
-      { buyerId: sellers[1].id, productId: products[1].id, quantity: 1, total: new Prisma.Decimal(58), createdAt: new Date(Date.now() - 24 * 3600000) },
-      { buyerId: sellers[2].id, productId: products[2].id, quantity: 3, total: new Prisma.Decimal(285), createdAt: new Date(Date.now() - 48 * 3600000) },
+      {
+        buyerId: sellers[0].id,
+        productId: products[0].id,
+        quantity: 2,
+        total: new Prisma.Decimal(64),
+        createdAt: new Date(Date.now() - 2 * 3600000),
+      },
+      {
+        buyerId: sellers[1].id,
+        productId: products[1].id,
+        quantity: 1,
+        total: new Prisma.Decimal(58),
+        createdAt: new Date(Date.now() - 24 * 3600000),
+      },
+      {
+        buyerId: sellers[2].id,
+        productId: products[2].id,
+        quantity: 3,
+        total: new Prisma.Decimal(285),
+        createdAt: new Date(Date.now() - 48 * 3600000),
+      },
     ],
   });
   console.log('Created orders');

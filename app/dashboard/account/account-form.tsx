@@ -86,13 +86,24 @@ export function AccountForm({ user }: AccountFormProps) {
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" defaultValue={user.email || ''} required />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                defaultValue={user.email || ''}
+                required
+              />
             </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="bio">Bio</Label>
-            <Input id="bio" name="bio" defaultValue={user.bio || ''} placeholder="Tell us about yourself" />
+            <Input
+              id="bio"
+              name="bio"
+              defaultValue={user.bio || ''}
+              placeholder="Tell us about yourself"
+            />
           </div>
 
           <div className="flex justify-end">

@@ -1,6 +1,6 @@
 // app/dashboard/api/route.ts
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';           // This gives you session on server
+import { auth } from '@/lib/auth'; // This gives you session on server
 import prisma from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
@@ -20,47 +20,41 @@ export async function GET() {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
-  const [
-    orders,
-    revenueThisMonth,
-    reviewsCount,
-    productsCount,
-    recentReviews,
-    recentMessages,
-  ] = await Promise.all([
-    prisma.order.findMany({
-      where: { buyerId: user.id },
-      include: { product: true },
-      orderBy: { createdAt: 'desc' },
-      take: 10,
-    }),
+  const [orders, revenueThisMonth, reviewsCount, productsCount, recentReviews, recentMessages] =
+    await Promise.all([
+      prisma.order.findMany({
+        where: { buyerId: user.id },
+        include: { product: true },
+        orderBy: { createdAt: 'desc' },
+        take: 10,
+      }),
 
-    prisma.order.aggregate({
-      where: {
-        buyerId: user.id,
-        createdAt: {
-          gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+      prisma.order.aggregate({
+        where: {
+          buyerId: user.id,
+          createdAt: {
+            gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+          },
         },
-      },
-      _sum: { total: true },
-    }),
+        _sum: { total: true },
+      }),
 
-    prisma.review.count({ where: { product: { sellerId: user.id } } }),
-    prisma.product.count({ where: { sellerId: user.id } }),
+      prisma.review.count({ where: { product: { sellerId: user.id } } }),
+      prisma.product.count({ where: { sellerId: user.id } }),
 
-    prisma.review.findMany({
-      where: { product: { sellerId: user.id } },
-      include: { product: true },
-      orderBy: { createdAt: 'desc' },
-      take: 5,
-    }),
+      prisma.review.findMany({
+        where: { product: { sellerId: user.id } },
+        include: { product: true },
+        orderBy: { createdAt: 'desc' },
+        take: 5,
+      }),
 
-    prisma.message.findMany({
-      where: { senderId: user.id },
-      orderBy: { createdAt: 'desc' },
-      take: 5,
-    }),
-  ]);
+      prisma.message.findMany({
+        where: { senderId: user.id },
+        orderBy: { createdAt: 'desc' },
+        take: 5,
+      }),
+    ]);
 
   const formatTime = (date: Date) => {
     const diff = Date.now() - date.getTime();
@@ -79,20 +73,20 @@ export async function GET() {
       productsCount,
     },
     activity: {
-      orders: orders.map(o => ({
+      orders: orders.map((o) => ({
         buyer: { name: user.name || 'You' },
         product: { name: o.product.name },
         quantity: o.quantity,
         total: Number(o.total),
         createdAt: formatTime(o.createdAt),
       })),
-      reviews: recentReviews.map(r => ({
+      reviews: recentReviews.map((r) => ({
         rating: r.rating,
         review: r.review,
         product: { name: r.product.name },
         createdAt: formatTime(r.createdAt),
       })),
-      messages: recentMessages.map(m => ({
+      messages: recentMessages.map((m) => ({
         sender: { name: user.name || 'You' },
         content: m.content,
         createdAt: formatTime(m.createdAt),
