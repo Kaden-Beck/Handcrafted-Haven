@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,8 +7,39 @@ import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import GithubLogin from './functional/github-login';
 import { loginWithCredentialsAction } from '@/app/(auth)/login/actions';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
+  const router = useRouter();
+  const { update } = useSession();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    try {
+      const result = await loginWithCredentialsAction(formData);
+      if (result && !result.success) {
+        toast.error(result.message);
+        return;
+      }
+      toast.success('Logged in successfully!');
+    } catch (error) {
+      if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
+        toast.success('Logged in successfully!');
+        router.refresh();
+        await update();
+        return;
+      }
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('An unexpected error occurred.');
+      }
+    }
+  };
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
@@ -15,7 +48,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
           <CardDescription>Enter your email below to login to your account</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <form action={loginWithCredentialsAction}>
+          <form onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>

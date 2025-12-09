@@ -5,16 +5,16 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@/lib/prisma';
 import { compare } from 'bcryptjs';
 import { z } from 'zod';
+import { User } from '@/prisma/generated/prisma';
 
 const credentialsSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
 });
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  // ✅ Switch to JWT sessions for local dev
-  session: { strategy: 'jwt' },
+  session: { strategy: 'database' },
   providers: [
     GitHub,
     Credentials({
@@ -27,8 +27,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         const { email, password } = parsed.data;
 
-        const user = await prisma.user.findUnique({
-          where: { email },
+        const user: User | null = await prisma.user.findUnique({
+          where: { email: email },
         });
 
         if (!user?.passwordHash) {
@@ -49,8 +49,23 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
   pages: {
     signIn: '/login',
+    newUser: '/register',
   },
   callbacks: {
     async jwt({ token, user }) {

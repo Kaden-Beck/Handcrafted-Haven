@@ -5,7 +5,7 @@ import { executeAction } from '@/lib/executeAction';
 import { z } from 'zod';
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
 });
 
@@ -19,7 +19,7 @@ export async function loginWithCredentialsAction(formData: FormData) {
     throw new Error('Please provide a valid email and password.');
   }
 
-  await executeAction({
+  return await executeAction({
     actionFn: async () => {
       await signIn('credentials', {
         email: parsed.data.email,

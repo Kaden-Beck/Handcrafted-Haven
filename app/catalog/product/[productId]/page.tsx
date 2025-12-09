@@ -1,23 +1,24 @@
 import prisma from '@/lib/prisma';
+import { Product, User } from '@/prisma/generated/prisma';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
+type ProductWithSeller = Product & { seller: User };
+
 export default async function ProductPage({ params }: { params: { productId: string } }) {
+  let product: ProductWithSeller;
   const { productId } = await params;
 
-  // THIS IS THE FIX – safe parsing
-  const id = parseInt(productId, 10);
-  if (!productId || isNaN(id)) {
+  if (!productId) {
     notFound();
   }
-
-  let product;
 
   try {
     product = await prisma.product.findUniqueOrThrow({

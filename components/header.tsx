@@ -6,8 +6,10 @@ import { MenuToggleIcon } from '@/components/menu-toggle-icon';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { useScroll } from '@/hooks/use-scroll';
 import { cn } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
 
 export function Header() {
+  const { status } = useSession();
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
   const navRef = React.useRef<HTMLElement | null>(null);
@@ -87,32 +89,11 @@ export function Header() {
               {link.label}
             </a>
           ))}
-
           <Link href="/login">
-            <Button
-              variant="outline"
-              className={cn(
-                'font-medium transition-all duration-200',
-                scrolled
-                  ? 'border-white/30 text-white hover:bg-white/10 hover:text-[#ffb703]'
-                  : 'border-[#023047] text-[#023047] hover:bg-[#023047]/10'
-              )}
-            >
-              Sign In
-            </Button>
+            <Button variant="outline">Sign In</Button>
           </Link>
-
           <Link href="/register">
-            <Button
-              className={cn(
-                'font-bold shadow-lg transition-all duration-300',
-                scrolled
-                  ? 'bg-[#ffb703] text-[#023047] hover:bg-[#fb8500] hover:shadow-[#ffb703]/30'
-                  : 'bg-[#ffb703] text-[#023047] hover:bg-[#fb8500]'
-              )}
-            >
-              Get Started
-            </Button>
+            <Button>Get Started</Button>
           </Link>
         </div>
 
@@ -134,8 +115,6 @@ export function Header() {
           <MenuToggleIcon className="size-5" duration={300} open={open} />
         </Button>
       </nav>
-
-      {/* Mobile Menu */}
       <MobileMenu className="flex flex-col justify-between gap-2" offset={navHeight} open={open}>
         <div className="grid gap-y-2">
           {links.map((link) => (
@@ -152,12 +131,10 @@ export function Header() {
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10">
+          <Button className="w-full bg-transparent" variant="outline">
             Sign In
           </Button>
-          <Button className="w-full bg-[#ffb703] text-[#023047] hover:bg-[#fb8500] font-bold shadow-lg">
-            Get Started
-          </Button>
+          <Button className="w-full">Get Started</Button>
         </div>
       </MobileMenu>
     </header>
@@ -167,10 +144,13 @@ export function Header() {
 type MobileMenuProps = React.ComponentProps<'div'> & {
   open: boolean;
   offset?: number;
+  status: 'authenticated' | 'loading' | 'unauthenticated';
 };
 
 function MobileMenu({ open, children, className, offset = 64, ...props }: MobileMenuProps) {
-  if (!open || typeof window === 'undefined') return null;
+  if (!open || typeof window === 'undefined') {
+    return null;
+  }
 
   return createPortal(
     <div

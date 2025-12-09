@@ -1,5 +1,7 @@
 import { AnyNull } from '@prisma/client-runtime-utils';
+import { AnyNullClass } from '@prisma/client-runtime-utils';
 import { DbNull } from '@prisma/client-runtime-utils';
+import { DbNullClass } from '@prisma/client-runtime-utils';
 import { Decimal } from '@prisma/client-runtime-utils';
 import { empty } from '@prisma/client-runtime-utils';
 import { isAnyNull } from '@prisma/client-runtime-utils';
@@ -7,6 +9,7 @@ import { isDbNull } from '@prisma/client-runtime-utils';
 import { isJsonNull } from '@prisma/client-runtime-utils';
 import { join } from '@prisma/client-runtime-utils';
 import { JsonNull } from '@prisma/client-runtime-utils';
+import { JsonNullClass } from '@prisma/client-runtime-utils';
 import { NullTypes } from '@prisma/client-runtime-utils';
 import { ObjectEnumValue } from '@prisma/client-runtime-utils';
 import { PrismaClientInitializationError } from '@prisma/client-runtime-utils';
@@ -85,7 +88,7 @@ export declare type AllModelsToStringIndex<TypeMap extends TypeMapDef, Args exte
     [P in K]: Record<TypeMap['meta']['modelProps'], AllModels>;
 } : {};
 
-export { AnyNull }
+export { AnyNull };
 
 export declare type ApplyOmit<T, OmitConfig> = Compute<{
     [K in keyof T as OmitValue<OmitConfig, K> extends true ? never : K]: T[K];
@@ -404,7 +407,7 @@ declare type DataRule = {
     type: 'never';
 };
 
-export { DbNull }
+export { DbNull };
 
 export declare const Debug: typeof debugCreate & {
     enable(namespace: any): void;
@@ -765,36 +768,36 @@ declare interface Engine<InteractiveTransactionPayload = unknown> {
 }
 
 declare interface EngineConfig {
-    enableDebugLogs?: boolean;
-    prismaPath?: string;
-    logQueries?: boolean;
-    logLevel?: 'info' | 'warn';
-    clientVersion: string;
-    previewFeatures?: string[];
-    activeProvider?: string;
-    logEmitter: LogEmitter;
-    transactionOptions: Transaction_2.Options;
-    /**
-     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
-     */
-    adapter?: SqlDriverAdapterFactory;
-    /**
-     * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
-     */
-    accelerateUrl?: string;
-    /**
-     * The contents of the schema encoded into a string
-     */
-    inlineSchema: string;
-    /**
-     * The helper for interaction with OTEL tracing
-     * @remarks enabling is determined by the client and @prisma/instrumentation package
-     */
-    tracingHelper: TracingHelper;
-    /**
-     * Web Assembly module loading configuration
-     */
-    compilerWasm?: CompilerWasmLoadingConfig;
+  enableDebugLogs?: boolean;
+  prismaPath?: string;
+  logQueries?: boolean;
+  logLevel?: 'info' | 'warn';
+  clientVersion: string;
+  previewFeatures?: string[];
+  activeProvider?: string;
+  logEmitter: LogEmitter;
+  transactionOptions: Transaction_2.Options;
+  /**
+   * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
+   */
+  adapter?: SqlDriverAdapterFactory;
+  /**
+   * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
+   */
+  accelerateUrl?: string;
+  /**
+   * The contents of the schema encoded into a string
+   */
+  inlineSchema: string;
+  /**
+   * The helper for interaction with OTEL tracing
+   * @remarks enabling is determined by the client and @prisma/instrumentation package
+   */
+  tracingHelper: TracingHelper;
+  /**
+   * Web Assembly module loading configuration
+   */
+  compilerWasm?: CompilerWasmLoadingConfig;
 }
 
 declare type EngineEvent<E extends EngineEventType> = E extends QueryEventType ? QueryEvent : LogEvent;
@@ -862,13 +865,13 @@ declare interface ExceptionWithName {
 declare type ExtendedEventType = LogLevel | 'beforeExit';
 
 declare type ExtendedSpanOptions = SpanOptions & {
-    /** The name of the span */
-    name: string;
-    internal?: boolean;
-    /** Whether it propagates context (?=true) */
-    active?: boolean;
-    /** The context to append the span to */
-    context?: Context;
+  /** The name of the span */
+  name: string;
+  internal?: boolean;
+  /** Whether it propagates context (?=true) */
+  active?: boolean;
+  /** The context to append the span to */
+  context?: Context;
 };
 
 /** $extends, defineExtension */
@@ -1589,7 +1592,7 @@ declare type JsonFieldSelection = {
     selection: JsonSelectionSet;
 };
 
-export { JsonNull }
+export { JsonNull };
 
 /**
  * From https://github.com/sindresorhus/type-fest/
@@ -1601,12 +1604,33 @@ export declare type JsonObject = {
 };
 
 export declare type JsonQuery = {
-    modelName?: string;
-    action: JsonQueryAction;
-    query: JsonFieldSelection;
+  modelName?: string;
+  action: JsonQueryAction;
+  query: JsonFieldSelection;
 };
 
-declare type JsonQueryAction = 'findUnique' | 'findUniqueOrThrow' | 'findFirst' | 'findFirstOrThrow' | 'findMany' | 'createOne' | 'createMany' | 'createManyAndReturn' | 'updateOne' | 'updateMany' | 'updateManyAndReturn' | 'deleteOne' | 'deleteMany' | 'upsertOne' | 'aggregate' | 'groupBy' | 'executeRaw' | 'queryRaw' | 'runCommandRaw' | 'findRaw' | 'aggregateRaw';
+declare type JsonQueryAction =
+  | 'findUnique'
+  | 'findUniqueOrThrow'
+  | 'findFirst'
+  | 'findFirstOrThrow'
+  | 'findMany'
+  | 'createOne'
+  | 'createMany'
+  | 'createManyAndReturn'
+  | 'updateOne'
+  | 'updateMany'
+  | 'updateManyAndReturn'
+  | 'deleteOne'
+  | 'deleteMany'
+  | 'upsertOne'
+  | 'aggregate'
+  | 'groupBy'
+  | 'executeRaw'
+  | 'queryRaw'
+  | 'runCommandRaw'
+  | 'findRaw'
+  | 'aggregateRaw';
 
 declare type JsonSelectionSet = {
     $scalars?: boolean;
@@ -1981,42 +2005,42 @@ declare type PrismaClientMutuallyExclusiveOptions = {
 };
 
 export declare type PrismaClientOptions = PrismaClientMutuallyExclusiveOptions & {
-    /**
-     * @default "colorless"
-     */
-    errorFormat?: ErrorFormat;
-    /**
-     * The default values for Transaction options
-     * maxWait ?= 2000
-     * timeout ?= 5000
-     */
-    transactionOptions?: Transaction_2.Options;
-    /**
-     * @example
-     * \`\`\`
-     * // Defaults to stdout
-     * log: ['query', 'info', 'warn']
-     *
-     * // Emit as events
-     * log: [
-     *  { emit: 'stdout', level: 'query' },
-     *  { emit: 'stdout', level: 'info' },
-     *  { emit: 'stdout', level: 'warn' }
-     * ]
-     * \`\`\`
-     * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
-     */
-    log?: Array<LogLevel | LogDefinition>;
-    omit?: GlobalOmitOptions;
-    /**
-     * @internal
-     * You probably don't want to use this. \`__internal\` is used by internal tooling.
-     */
-    __internal?: {
-        debug?: boolean;
-        /** This can be used for testing purposes */
-        configOverride?: (config: GetPrismaClientConfig) => GetPrismaClientConfig;
-    };
+  /**
+   * @default "colorless"
+   */
+  errorFormat?: ErrorFormat;
+  /**
+   * The default values for Transaction options
+   * maxWait ?= 2000
+   * timeout ?= 5000
+   */
+  transactionOptions?: Transaction_2.Options;
+  /**
+   * @example
+   * \`\`\`
+   * // Defaults to stdout
+   * log: ['query', 'info', 'warn']
+   *
+   * // Emit as events
+   * log: [
+   *  { emit: 'stdout', level: 'query' },
+   *  { emit: 'stdout', level: 'info' },
+   *  { emit: 'stdout', level: 'warn' }
+   * ]
+   * \`\`\`
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+   */
+  log?: Array<LogLevel | LogDefinition>;
+  omit?: GlobalOmitOptions;
+  /**
+   * @internal
+   * You probably don't want to use this. \`__internal\` is used by internal tooling.
+   */
+  __internal?: {
+    debug?: boolean;
+    /** This can be used for testing purposes */
+    configOverride?: (config: GetPrismaClientConfig) => GetPrismaClientConfig;
+  };
 };
 
 export { PrismaClientRustPanicError }
@@ -2856,22 +2880,22 @@ declare interface SpanStatus {
  * An enumeration of status codes.
  */
 declare enum SpanStatusCode {
-    /**
-     * The default status.
-     */
-    UNSET = 0,
-    /**
-     * The operation has been validated by an Application developer or
-     * Operator to have completed successfully.
-     */
-    OK = 1,
-    /**
-     * The operation contains an error.
-     */
-    ERROR = 2
+  /**
+   * The default status.
+   */
+  UNSET = 0,
+  /**
+   * The operation has been validated by an Application developer or
+   * Operator to have completed successfully.
+   */
+  OK = 1,
+  /**
+   * The operation contains an error.
+   */
+  ERROR = 2,
 }
 
-export { Sql }
+export { Sql };
 
 declare interface SqlDriverAdapter extends SqlQueryable {
     /**
@@ -3000,12 +3024,12 @@ declare interface Transaction extends AdapterInfo, SqlQueryable {
 }
 
 declare namespace Transaction_2 {
-    export {
-        Options,
-        IsolationLevel_2 as IsolationLevel,
-        InteractiveTransactionInfo,
-        TransactionHeaders
-    }
+  export {
+    Options,
+    IsolationLevel_2 as IsolationLevel,
+    InteractiveTransactionInfo,
+    TransactionHeaders,
+  };
 }
 
 declare type TransactionHeaders = {

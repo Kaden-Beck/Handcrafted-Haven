@@ -24,13 +24,13 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.0.0
- * Query Engine version: 0c19ccc313cf9911a90d99d2ac2eb0280c76c513
+ * Prisma Client JS version: 7.0.1
+ * Query Engine version: f09f2815f091dbba658cdcd2264306d88bb5bda6
  */
 Prisma.prismaVersion = {
-  client: "7.0.0",
-  engine: "0c19ccc313cf9911a90d99d2ac2eb0280c76c513"
-}
+  client: '7.0.1',
+  engine: 'f09f2815f091dbba658cdcd2264306d88bb5bda6',
+};
 
 Prisma.PrismaClientKnownRequestError = () => {
   const runtimeName = getRuntime().prettyName;
@@ -135,7 +135,6 @@ exports.Prisma.ReviewScalarFieldEnum = {
   rating: 'rating',
   review: 'review',
   productId: 'productId',
-  createdAt: 'createdAt'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -188,23 +187,7 @@ exports.Prisma.AuthenticatorScalarFieldEnum = {
   counter: 'counter',
   credentialDeviceType: 'credentialDeviceType',
   credentialBackedUp: 'credentialBackedUp',
-  transports: 'transports'
-};
-
-exports.Prisma.OrderScalarFieldEnum = {
-  id: 'id',
-  buyerId: 'buyerId',
-  productId: 'productId',
-  quantity: 'quantity',
-  total: 'total',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.MessageScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  senderId: 'senderId',
-  createdAt: 'createdAt'
+  transports: 'transports',
 };
 
 exports.Prisma.SortOrder = {
@@ -231,8 +214,6 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
-  Order: 'Order',
-  Message: 'Message'
 };
 
 /**
