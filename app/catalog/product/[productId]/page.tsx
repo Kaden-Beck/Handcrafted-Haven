@@ -14,28 +14,10 @@ type ProductWithSeller = Product & { seller: User };
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   let product: ProductWithSeller;
-  let user: User;
-
   const { productId } = await params;
 
-  if (!productId) {
+  if (!productId || isNaN(Number(productId))) {
     notFound();
-  }
-
-  try {
-    // const session = await auth();
-    // if (!session) redirect('/login');
-    // const user = await prisma.user.findUnique({ where: { id: session.user?.id } });
-
-    const foundUser = await prisma.user.findFirst();
-
-    if (!foundUser) {
-      redirect('/login');
-    }
-    user = foundUser;
-  } catch (error) {
-    console.log(error);
-    redirect('/dashboard/products');
   }
 
   try {
@@ -48,24 +30,9 @@ export default async function ProductPage({ params }: { params: { productId: str
         reviews: true,
       },
     });
-
-    if (product.sellerId != user?.id) {
-      notFound();
-    }
   } catch (error) {
     console.log(error);
     notFound();
-  }
-
-  // Fetch the seller details using the sellerId
-  const seller = await prisma.user.findUnique({
-    where: { id: product.sellerId },
-  });
-
-  if (!seller) {
-    notFound();
-  } else {
-    product = { ...product, seller };
   }
 
   // const reviews = product.reviews ?? [];

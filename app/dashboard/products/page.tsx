@@ -1,20 +1,9 @@
+import ProductCardSeller from '@/components/product-card-seller';
+import { auth } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { Product, User } from '@/prisma/generated/prisma';
-import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import ProductCardSeller from '@/components/product-card-seller';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { ProductAddForm } from './product-add-form';
 
 export default async function ProductManagement() {
   // let user: User;
@@ -49,43 +38,7 @@ export default async function ProductManagement() {
       </div>
       <h1 className="text-2xl font-semibold text-balance">Add Products</h1>
 
-      <Card>
-        <CardContent className="p-6">
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div className="space-y-2">
-                <Label htmlFor="productName">Product Name</Label>
-                <Input id="productName" defaultValue={'product name'} />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="price">Price</Label>
-                <Input id="price" type="number" defaultValue={0.0} />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="type">Type</Label>
-                <Select defaultValue="1">
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">Type 1</SelectItem>
-                    <SelectItem value="2">Type 2</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Input id="description" defaultValue={'Product Description'} />
-            </div>
-
-            <div className="flex justify-end">
-              <Button>Add Product</Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <ProductAddForm />
     </div>
   );
 }
