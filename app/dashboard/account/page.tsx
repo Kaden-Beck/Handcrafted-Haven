@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { User } from '@/prisma/generated/prisma';
-import ToastLogin from './toast-login';
 
 export default async function AccountManagement() {
   let user: User;
@@ -27,7 +26,6 @@ export default async function AccountManagement() {
 
   return (
     <div className="space-y-6">
-      <ToastLogin />
       <h1 className="text-2xl font-semibold text-balance">Account Details</h1>
       <Card>
         <CardContent className="p-6">
