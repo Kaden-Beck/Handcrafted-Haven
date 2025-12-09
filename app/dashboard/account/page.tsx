@@ -8,23 +8,9 @@ import { Label } from '@/components/ui/label';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { User } from '@/prisma/generated/prisma';
-
-"use client";
-
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import { toast } from "sonner";
+import ToastLogin from './toast-login';
 
 export default async function AccountManagement() {
-  const searchParams = useSearchParams();
-  const logged = searchParams.get("logged");
-
-  useEffect(() => {
-    if (logged === "true") {
-      toast.success("Logged in successfully!");
-    }
-  }, [logged]);
-  
   let user: User;
   const session = await auth();
   if (!session) redirect('/login');
@@ -41,6 +27,7 @@ export default async function AccountManagement() {
 
   return (
     <div className="space-y-6">
+      <ToastLogin />
       <h1 className="text-2xl font-semibold text-balance">Account Details</h1>
       <Card>
         <CardContent className="p-6">
