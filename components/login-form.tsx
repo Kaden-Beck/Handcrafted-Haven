@@ -19,7 +19,11 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     try {
-      await loginWithCredentialsAction(formData);
+      const result = await loginWithCredentialsAction(formData);
+      if (result && !result.success) {
+        toast.error(result.message);
+        return;
+      }
       toast.success('Logged in successfully!');
     } catch (error) {
       if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
