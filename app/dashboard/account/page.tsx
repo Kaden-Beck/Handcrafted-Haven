@@ -9,7 +9,22 @@ import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { User } from '@/prisma/generated/prisma';
 
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
+
 export default async function AccountManagement() {
+  const searchParams = useSearchParams();
+  const logged = searchParams.get("logged");
+
+  useEffect(() => {
+    if (logged === "true") {
+      toast.success("Logged in successfully!");
+    }
+  }, [logged]);
+  
   let user: User;
   const session = await auth();
   if (!session) redirect('/login');
