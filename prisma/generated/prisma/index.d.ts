@@ -2680,6 +2680,8 @@ export namespace Prisma {
     id: number | null
     rating: number | null
     review: string | null
+    createdAt: Date | null
+    author_name: string | null
     productId: number | null
   }
 
@@ -2687,6 +2689,8 @@ export namespace Prisma {
     id: number | null
     rating: number | null
     review: string | null
+    createdAt: Date | null
+    author_name: string | null
     productId: number | null
   }
 
@@ -2694,6 +2698,8 @@ export namespace Prisma {
     id: number
     rating: number
     review: number
+    createdAt: number
+    author_name: number
     productId: number
     _all: number
   }
@@ -2715,6 +2721,8 @@ export namespace Prisma {
     id?: true
     rating?: true
     review?: true
+    createdAt?: true
+    author_name?: true
     productId?: true
   }
 
@@ -2722,6 +2730,8 @@ export namespace Prisma {
     id?: true
     rating?: true
     review?: true
+    createdAt?: true
+    author_name?: true
     productId?: true
   }
 
@@ -2729,6 +2739,8 @@ export namespace Prisma {
     id?: true
     rating?: true
     review?: true
+    createdAt?: true
+    author_name?: true
     productId?: true
     _all?: true
   }
@@ -2823,6 +2835,8 @@ export namespace Prisma {
     id: number
     rating: number
     review: string | null
+    createdAt: Date
+    author_name: string | null
     productId: number
     _count: ReviewCountAggregateOutputType | null
     _avg: ReviewAvgAggregateOutputType | null
@@ -2849,6 +2863,8 @@ export namespace Prisma {
     id?: boolean
     rating?: boolean
     review?: boolean
+    createdAt?: boolean
+    author_name?: boolean
     productId?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
@@ -2857,6 +2873,8 @@ export namespace Prisma {
     id?: boolean
     rating?: boolean
     review?: boolean
+    createdAt?: boolean
+    author_name?: boolean
     productId?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
@@ -2865,6 +2883,8 @@ export namespace Prisma {
     id?: boolean
     rating?: boolean
     review?: boolean
+    createdAt?: boolean
+    author_name?: boolean
     productId?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["review"]>
@@ -2873,10 +2893,12 @@ export namespace Prisma {
     id?: boolean
     rating?: boolean
     review?: boolean
+    createdAt?: boolean
+    author_name?: boolean
     productId?: boolean
   }
 
-  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "review" | "productId", ExtArgs["result"]["review"]>
+  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rating" | "review" | "createdAt" | "author_name" | "productId", ExtArgs["result"]["review"]>
   export type ReviewInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
   }
@@ -2896,6 +2918,8 @@ export namespace Prisma {
       id: number
       rating: number
       review: string | null
+      createdAt: Date
+      author_name: string | null
       productId: number
     }, ExtArgs["result"]["review"]>
     composites: {}
@@ -3324,6 +3348,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Review", 'Int'>
     readonly rating: FieldRef<"Review", 'Int'>
     readonly review: FieldRef<"Review", 'String'>
+    readonly createdAt: FieldRef<"Review", 'DateTime'>
+    readonly author_name: FieldRef<"Review", 'String'>
     readonly productId: FieldRef<"Review", 'Int'>
   }
     
@@ -9330,6 +9356,8 @@ export namespace Prisma {
     id: 'id',
     rating: 'rating',
     review: 'review',
+    createdAt: 'createdAt',
+    author_name: 'author_name',
     productId: 'productId'
   };
 
@@ -9590,6 +9618,8 @@ export namespace Prisma {
     id?: IntFilter<"Review"> | number
     rating?: IntFilter<"Review"> | number
     review?: StringNullableFilter<"Review"> | string | null
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    author_name?: StringNullableFilter<"Review"> | string | null
     productId?: IntFilter<"Review"> | number
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }
@@ -9598,6 +9628,8 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     review?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    author_name?: SortOrderInput | SortOrder
     productId?: SortOrder
     product?: ProductOrderByWithRelationInput
   }
@@ -9609,6 +9641,8 @@ export namespace Prisma {
     NOT?: ReviewWhereInput | ReviewWhereInput[]
     rating?: IntFilter<"Review"> | number
     review?: StringNullableFilter<"Review"> | string | null
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    author_name?: StringNullableFilter<"Review"> | string | null
     productId?: IntFilter<"Review"> | number
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }, "id">
@@ -9617,6 +9651,8 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     review?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    author_name?: SortOrderInput | SortOrder
     productId?: SortOrder
     _count?: ReviewCountOrderByAggregateInput
     _avg?: ReviewAvgOrderByAggregateInput
@@ -9632,6 +9668,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Review"> | number
     rating?: IntWithAggregatesFilter<"Review"> | number
     review?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Review"> | Date | string
+    author_name?: StringNullableWithAggregatesFilter<"Review"> | string | null
     productId?: IntWithAggregatesFilter<"Review"> | number
   }
 
@@ -10061,6 +10099,8 @@ export namespace Prisma {
   export type ReviewCreateInput = {
     rating: number
     review?: string | null
+    createdAt?: Date | string
+    author_name?: string | null
     product: ProductCreateNestedOneWithoutReviewsInput
   }
 
@@ -10068,12 +10108,16 @@ export namespace Prisma {
     id?: number
     rating: number
     review?: string | null
+    createdAt?: Date | string
+    author_name?: string | null
     productId: number
   }
 
   export type ReviewUpdateInput = {
     rating?: IntFieldUpdateOperationsInput | number
     review?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_name?: NullableStringFieldUpdateOperationsInput | string | null
     product?: ProductUpdateOneRequiredWithoutReviewsNestedInput
   }
 
@@ -10081,6 +10125,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
     review?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_name?: NullableStringFieldUpdateOperationsInput | string | null
     productId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -10088,18 +10134,24 @@ export namespace Prisma {
     id?: number
     rating: number
     review?: string | null
+    createdAt?: Date | string
+    author_name?: string | null
     productId: number
   }
 
   export type ReviewUpdateManyMutationInput = {
     rating?: IntFieldUpdateOperationsInput | number
     review?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ReviewUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
     review?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_name?: NullableStringFieldUpdateOperationsInput | string | null
     productId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -10669,6 +10721,17 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type ProductScalarRelationFilter = {
     is?: ProductWhereInput
     isNot?: ProductWhereInput
@@ -10678,6 +10741,8 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     review?: SortOrder
+    createdAt?: SortOrder
+    author_name?: SortOrder
     productId?: SortOrder
   }
 
@@ -10691,6 +10756,8 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     review?: SortOrder
+    createdAt?: SortOrder
+    author_name?: SortOrder
     productId?: SortOrder
   }
 
@@ -10698,6 +10765,8 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     review?: SortOrder
+    createdAt?: SortOrder
+    author_name?: SortOrder
     productId?: SortOrder
   }
 
@@ -10705,6 +10774,20 @@ export namespace Prisma {
     id?: SortOrder
     rating?: SortOrder
     productId?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -10716,17 +10799,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type AccountListRelationFilter = {
@@ -10817,20 +10889,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -11113,6 +11171,10 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type ProductUpdateOneRequiredWithoutReviewsNestedInput = {
     create?: XOR<ProductCreateWithoutReviewsInput, ProductUncheckedCreateWithoutReviewsInput>
     connectOrCreate?: ProductCreateOrConnectWithoutReviewsInput
@@ -11179,10 +11241,6 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -11489,17 +11547,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -11509,20 +11556,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11537,6 +11570,31 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11617,12 +11675,16 @@ export namespace Prisma {
   export type ReviewCreateWithoutProductInput = {
     rating: number
     review?: string | null
+    createdAt?: Date | string
+    author_name?: string | null
   }
 
   export type ReviewUncheckedCreateWithoutProductInput = {
     id?: number
     rating: number
     review?: string | null
+    createdAt?: Date | string
+    author_name?: string | null
   }
 
   export type ReviewCreateOrConnectWithoutProductInput = {
@@ -11699,6 +11761,8 @@ export namespace Prisma {
     id?: IntFilter<"Review"> | number
     rating?: IntFilter<"Review"> | number
     review?: StringNullableFilter<"Review"> | string | null
+    createdAt?: DateTimeFilter<"Review"> | Date | string
+    author_name?: StringNullableFilter<"Review"> | string | null
     productId?: IntFilter<"Review"> | number
   }
 
@@ -12232,23 +12296,31 @@ export namespace Prisma {
     id?: number
     rating: number
     review?: string | null
+    createdAt?: Date | string
+    author_name?: string | null
   }
 
   export type ReviewUpdateWithoutProductInput = {
     rating?: IntFieldUpdateOperationsInput | number
     review?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ReviewUncheckedUpdateWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
     review?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ReviewUncheckedUpdateManyWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
     review?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author_name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountCreateManyUserInput = {
