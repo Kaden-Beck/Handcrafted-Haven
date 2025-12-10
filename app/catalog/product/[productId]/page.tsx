@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { Product, User } from '@/prisma/generated/prisma';
+import { Product, User, Review } from '@/prisma/generated/prisma';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,8 +9,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Star } from 'lucide-react';
+import { ReviewForm } from '@/components/reviews/review-form';
+import { ReviewList } from '@/components/reviews/review-list';
 
-type ProductWithSeller = Product & { seller: User };
+type ProductWithSeller = Product & { seller: User; reviews: Review[] };
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   let product: ProductWithSeller;
@@ -34,6 +37,12 @@ export default async function ProductPage({ params }: { params: { productId: str
     console.log(error);
     notFound();
   }
+
+  const reviews = product.reviews ?? [];
+  const ratings = reviews.map((review) => review.rating);
+  const averageRating = ratings.length
+    ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
+    : 0;
 
   // const reviews = product.reviews ?? [];
   // const ratings = reviews.map((review) => review.rating);
@@ -141,42 +150,25 @@ export default async function ProductPage({ params }: { params: { productId: str
           <Card className="border-border">
             <CardContent className="p-6 space-y-6">
               <div>
-                <h3 className="text-2xl font-semibold mb-2">Reviews</h3>
-                {/* <p className="text-muted-foreground">
-                  {ratings.length
-                    ? 'Hear what buyers have to say about this item.'
-                    : 'No reviews yet. Be the first to share your thoughts!'}
-                </p> */}
+                <div className="flex items-center gap-4 mb-2">
+                  <h3 className="text-2xl font-semibold">Reviews</h3>
+                  <div className="flex items-center gap-1">
+                    <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    <span className="font-medium text-lg">
+                      {averageRating > 0 ? averageRating.toFixed(1) : 'New'}
+                    </span>
+                    <span className="text-muted-foreground text-sm">
+                      ({reviews.length} {reviews.length === 1 ? 'review' : 'reviews'})
+                    </span>
+                  </div>
+                </div>
               </div>
 
               <Separator />
 
-              {/* {ratings.length ? (
-                <div className="space-y-4">
-                  {product.reviews.map((review) => (
-                    <div key={review.id} className="rounded-lg border border-border/70 p-4">
-                      <div className="flex items-center gap-2 text-yellow-400">
-                        {[...Array(5)].map((_, index) => (
-                          <Star
-                            key={index}
-                            className={`w-4 h-4 ${
-                              index < review.rating
-                                ? 'fill-yellow-400'
-                                : 'fill-gray-300 text-gray-300'
-                            }`}
-                          />
-                        ))}
-                        <span className="text-sm text-muted-foreground">{review.rating} / 5</span>
-                      </div>
-                      {review.review && (
-                        <p className="mt-2 text-sm text-muted-foreground">{review.review}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : ( */}
-              <p className="text-sm text-muted-foreground">No customer feedback yet.</p>
-              {/* )} */}
+              <ReviewList reviews={reviews} />
+              
+              <ReviewForm productId={product.id} />
             </CardContent>
           </Card>
         </section>
